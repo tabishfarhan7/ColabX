@@ -1,5 +1,6 @@
-ColabX - A platform that connects entrepreneurs with the government, making it easier to access support, resources, and opportunities for growth. 
-# rolls-royce
+# ColabX 
+- A platform that connects entrepreneurs with the government, making it easier to access support, resources, and opportunities for growth. 
+
 
 
 - 💬 Ask me about **HTML,CSS3,JS**
