@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/fa9ae0ad-c345-4213-a2ec-28f85abef4f1)# ColabX
 ColabX - A platform that connects entrepreneurs with the government, making it easier to access support, resources, and opportunities for growth. 
 # rolls-royce
 
