@@ -6,15 +6,24 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
+    
+    
+    
 </head>
+
+
+
 <body>
+
+    
+
+    <!-- Header -->
     <header>
+    
         <nav class="navbar flex">
             <a href="#" class="logo">
                 Colab<span>X</span>
             </a>
-            <span></span>
-            <span></span>
             <ul  class="navlist flex">
                 <li><a href="#" class="link">Home</a></li>
                 <li><a href="#" class="link">About</a></li>
@@ -29,6 +38,15 @@
             </ul>
         </nav>
     </header>
+    <!-- Preloader -->
+    <!-- <div class="preloader">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-text">Colab<span>X</span></div>
+        </div>
+    </div> -->
+
     <section class="hero">
         <div class="container">
             <div class="container1">
@@ -40,8 +58,8 @@
                     <video src="assets/colab.mp4" loop autoplay muted playsinline></video>
                 </div>
                 <div class="button flex">
-                    <button><h5>Get Started</h5></button>
-                    <button><h5>Get free demo</h5></button>
+                    <button>Get Started</></button>
+                    <button>Get free demo</h5></button>
                 </div>
                 <div class="features flex">
                     <div class="feature">
@@ -70,5 +88,15 @@
         </div>
         
 </section>
+<script>
+ window.addEventListener('load', function() {
+        setTimeout(function() {
+            document.querySelector('.preloader').classList.add('hidden');
+        }, 1000);
+    });
+
+
+</script>
+
 </body>
 </html>
