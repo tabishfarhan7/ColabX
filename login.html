@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Themed Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"/>
+</head>
+<body>
+  <!-- Preloader --> 
+  <div class="preloader">
+    <div class="loader">
+        <div class="loader-circle"></div>
+        <div class="loader-circle"></div>
+        <div class="loader-text">Colab<span>X</span></div>
+    </div>
+</div>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Welcome Back</h2>
+            <p>Don’t have an account yet? <a href="#" class="signup-link">Sign up</a></p>
+
+            <div class="input-box">
+                <img src="assets/email.png" alt="Email Icon" class="icon">
+                <input type="email" placeholder="Email Address" required>
+            </div>
+
+            <div class="input-box">
+                <img src="assets/unlock.png" alt="Password Icon" class="icon">
+                <input type="password" placeholder="Password" required>
+            </div>
+
+            <button class="login-btn">Login</button>
+
+            <div class="separator-container">
+                <div class="line"></div>
+                <span class="separator">OR</span>
+                <div class="line"></div>
+            </div>
+
+            <div class="social-login">
+                <a href="#"><img src="assets/x (1).png" alt="X Login"></a>
+                <a href="#"><img src="assets/x (2).png" alt="Google Login"></a>
+                <a href="#"><img src="assets/x (3).png" alt="Apple Login"></a>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="snow-container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <script>
+        window.addEventListener('load', function() {
+               setTimeout(function() {
+                   document.querySelector('.preloader').classList.add('hidden');
+               }, 1000);
+           });
+       
+       
+       </script>
+
+</body>
+</html>
