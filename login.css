@@ -43,9 +43,11 @@ h2 {
 p {
     color: #aaa;
     margin-bottom: 20px;
+    font-size: 14px;
 }
 
-.signup-link {
+.signup-link { 
+    /* gap: 15px; */
     color: #FFE535;
     text-decoration: none;
 }
@@ -256,3 +258,72 @@ p {
 .snow-container span:nth-child(9) { left: 85%; animation-duration: 6s; animation-delay: 1s; }
 .snow-container span:nth-child(10) { left: 95%; animation-duration: 7s; animation-delay: 0s; }
 
+.glowing-lines-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.glowing-line {
+    position: absolute;
+    width: 100%;
+    filter: drop-shadow(0 0 10px #FFE535) drop-shadow(0 0 20px #FFE535);
+    animation: glow 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes glow {
+    0% {
+        filter: drop-shadow(0 0 5px #FFE535) drop-shadow(0 0 10px #FFE535);
+    }
+    100% {
+        filter: drop-shadow(0 0 15px #FFE535) drop-shadow(0 0 30px #FFE535);
+    }
+}
+
+/* Animation for Moving Effect */
+.line1 {
+    top: 10%;
+    left: -100%;
+    animation: moveLine1 3s infinite alternate ease-in-out;
+}
+
+.line2 {
+    top: 30%;
+    left: 100%;
+    animation: moveLine2 3.5s infinite alternate ease-in-out;
+}
+
+.line3 {
+    top: 50%;
+    left: -100%;
+    animation: moveLine3 4s infinite alternate ease-in-out;
+}
+.line4 {
+    top: 70%;
+    left: 100%;
+    animation: moveLine3 3.5s infinite alternate ease-in-out;
+}
+.line5 {
+    top: 90%;
+    left: -100%;
+    animation: moveLine3 3s infinite alternate ease-in-out;
+}
+
+@keyframes moveLine1 {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes moveLine2 {
+    0% { left: 100%; }
+    100% { left: -100%; }
+}
+
+@keyframes moveLine3 {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
