@@ -16,4 +16,4 @@
 
 ![ColabX1](https://github.com/tabishfarhan7/ColabX/blob/main/assets/Screenshot%202025-03-02%20173833.png)
 
-![Login](https://github.com/tabishfarhan7/ColabX/blob/main/assets/Screenshot%202025-03-04%20080705.png)
+![Login](https://github.com/tabishfarhan7/ColabX/blob/main/assets/Screenshot%202025-03-04%20084228.png)
