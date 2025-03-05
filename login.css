@@ -1,53 +1,169 @@
+
+
+
+
+
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 
-* {
-    margin: 0;
+*{
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
     font-family: "Poppins", serif;
 }
 
-
-
-body {
-    background-color: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+html{
+    scroll-behavior: smooth;
+}
+:root{
+    --white-clr: #fff;
+    --black-clr:#000;
+    --light-black:#333;
+    --primary-clr:#FFE535;
+    --secondary-clr:#eee;
+    --tag-clr:#56ac4e;
+    --gradient-primary: linear-gradient(45deg, #ff7e5f, #feb47b);
+    --text-dark: #333;
 }
 
-.login-container {
+.flex{
+    display: flex;
+    align-items: center;
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+/* a:hover{
+    color: var(--light-black);
+} */
+
+header{
+    background:var(--white-clr);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    box-shadow: 0px 5px 14.25px .75px rgba(36, 11,12,.05);
+}
+
+.logo{
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--black-clr);
+    padding-left: 1.5rem;
+}
+span{
+    color: var(--primary-clr);
+}
+
+.link{
+    font-size: .80rem;
+    color: var(--black-clr);
+    text-transform: uppercase;
+    font-weight: 400;
+ }
+ .icon{
+    font-size: .9rem;
+    color: var(--black-clr);
+    /* background:var(--secondary-clr) ; */
+    width:40px ;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+ }
+.navbar{
+    height: 12vh;
+    justify-content: space-between;
+    /* padding-left: 2rem; */
+}
+.navlist{
+    gap: 3rem;
+    padding-right: 2rem;
+    /* text-shadow: 0 0 15px #8e54e9; */
+  transition: all 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.navlist li {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px; /* Adds some space for the underline effect */
+}
+
+.navlist li::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-clr); /* Primary color underline */
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.navlist li:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.user-logo{
+    padding-right: 3rem;
+}
+.content {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh; /* Full screen height */
     width: 100%;
-    /* height: 70rem; */
+}
+
+.video video {
+    width: 25.5rem; /* Makes the video responsive */
+height: 34rem;
+position: relative;
+margin-left: 25.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Send video to the background */
+    margin-top: 2rem;
 }
 
 .login-box {
-    background-color: #111;
-    padding: 40px;
-    border-radius: 10px;
-    text-align: center;
-    width: 370px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    height: 450px;
+    background: rgba(159, 158, 158, 0.2); 
+padding: 40px;
+border-radius: 10px;
+text-align: center;
+width: 370px;
+box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+height: 400px;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+ backdrop-filter: blur(5px); 
+border: 1px solid rgba(255, 255, 255, 0.2); 
+margin-top: 1rem;
 }
 
 h2 {
-    color: #fff;
+    color: var(--black-clr);
 }
 
 p {
-    color: #aaa;
+    color:var(--black-clr);
     margin-bottom: 20px;
     font-size: 14px;
 }
 
-.signup-link { 
-    /* gap: 15px; */
+.signup-link {
     color: #FFE535;
     text-decoration: none;
 }
@@ -55,17 +171,19 @@ p {
 .input-box {
     position: relative;
     margin-bottom: 15px;
+    height: 2.5rem;
 }
 
 .input-box input {
     width: 100%;
     padding: 12px;
     padding-left: 40px;
-    background: #222;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border: none;
     border-radius: 5px;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .input-box .icon {
@@ -73,25 +191,26 @@ p {
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
+    width: 1rem;
+    height: 1.3rem;
 }
 
 .login-btn {
     width: 100%;
     background-color: #FFE535;
-    color: #000;
+    color:var(--black-clr);
     border: none;
-    padding: 12px;
+    padding: 3px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 13px;
     cursor: pointer;
     transition: 0.4s;
-    height: 3rem;
-    margin-top: 2rem;
+    height: 2.5rem;
+    margin-top: 1.3rem;
 }
 
 .login-btn:hover {
-    background-color:#fff;
+    background-color: #fff;
 }
 
 /* OR separator with lines */
@@ -99,7 +218,7 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 1.3rem;
 }
 
 .line {
@@ -110,20 +229,19 @@ p {
 }
 
 .separator {
-    /* margin-top: 2.5rem; */
     color: #777;
     font-size: 14px;
 }
 
 .social-login {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
     gap: 3rem;
 }
 
 .social-login a img {
-    width: 30px;
+    width: 20px;
     transition: transform 0.3s;
 }
 
@@ -136,194 +254,68 @@ p {
 
 
 .preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--white-clr);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: var(--white-clr);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
 }
 
 .preloader.hidden {
-    opacity: 0;
-    visibility: hidden;
+opacity: 0;
+visibility: hidden;
 }
 
 .loader {
-    position: relative;
-    width: 80px;
-    height: 80px;
+position: relative;
+width: 80px;
+height: 80px;
 }
 
 .loader-circle {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 7px solid transparent;
-    border-top-color: var(--primary-clr);
-    border-radius: 50%;
-    animation: spin 1.2s linear infinite;
+position: absolute;
+width: 100%;
+height: 100%;
+border: 7px solid transparent;
+border-top-color: var(--primary-clr);
+border-radius: 50%;
+animation: spin 1.2s linear infinite;
 }
 
 .loader-circle:nth-child(2) {
-    width: 60px;
-    height: 60px;
-    top: 10px;
-    left: 10px;
-    border-top-color: var(--black-clr);
-    animation-duration: 0.8s;
-    animation-direction: reverse;
+width: 60px;
+height: 60px;
+top: 10px;
+left: 10px;
+border-top-color: var(--black-clr);
+animation-duration: 0.8s;
+animation-direction: reverse;
 }
 
 .loader-text {
-    position: absolute;
-    top: 50%;
-    left: 53%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
-    font-size: 0.9rem;
+position: absolute;
+top: 50%;
+left: 53%;
+transform: translate(-50%, -50%);
+font-weight: bold;
+font-size: 0.9rem;
 }
 
 .loader-text span {
-    color: var(--primary-clr);
+color: var(--primary-clr);
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+0% {
+    transform: rotate(0deg);
 }
-
-@keyframes snowfall {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
+100% {
+    transform: rotate(360deg);
 }
-
-.snowflake {
-    position: absolute;
-    top: -10px;
-    background-color: white;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: snowfall linear infinite;
-    pointer-events: none;
-}
-
-.snow-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.snow-container span {
-    position: absolute;
-    top: -10px;
-    background-color: white;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: snowfall linear infinite;
-}
-
-/* Randomizing positions and animation durations */
-.snow-container span:nth-child(1) { left: 5%; animation-duration: 6s; animation-delay: 1s; }
-.snow-container span:nth-child(2) { left: 15%; animation-duration: 7s; animation-delay: 2s; }
-.snow-container span:nth-child(3) { left: 25%; animation-duration: 5s; animation-delay: 0s; }
-.snow-container span:nth-child(4) { left: 35%; animation-duration: 8s; animation-delay: 1s; }
-.snow-container span:nth-child(5) { left: 45%; animation-duration: 6s; animation-delay: 2s; }
-.snow-container span:nth-child(6) { left: 55%; animation-duration: 7s; animation-delay: 0s; }
-.snow-container span:nth-child(7) { left: 65%; animation-duration: 5s; animation-delay: 1s; }
-.snow-container span:nth-child(8) { left: 75%; animation-duration: 8s; animation-delay: 2s; }
-.snow-container span:nth-child(9) { left: 85%; animation-duration: 6s; animation-delay: 1s; }
-.snow-container span:nth-child(10) { left: 95%; animation-duration: 7s; animation-delay: 0s; }
-
-.glowing-lines-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.glowing-line {
-    position: absolute;
-    width: 100%;
-    filter: drop-shadow(0 0 10px #FFE535) drop-shadow(0 0 20px #FFE535);
-    animation: glow 1.5s infinite alternate ease-in-out;
-}
-
-@keyframes glow {
-    0% {
-        filter: drop-shadow(0 0 5px #FFE535) drop-shadow(0 0 10px #FFE535);
-    }
-    100% {
-        filter: drop-shadow(0 0 15px #FFE535) drop-shadow(0 0 30px #FFE535);
-    }
-}
-
-/* Animation for Moving Effect */
-.line1 {
-    top: 10%;
-    left: -100%;
-    animation: moveLine1 3s infinite alternate ease-in-out;
-}
-
-.line2 {
-    top: 30%;
-    left: 100%;
-    animation: moveLine2 3.5s infinite alternate ease-in-out;
-}
-
-.line3 {
-    top: 50%;
-    left: -100%;
-    animation: moveLine3 4s infinite alternate ease-in-out;
-}
-.line4 {
-    top: 70%;
-    left: 100%;
-    animation: moveLine3 3.5s infinite alternate ease-in-out;
-}
-.line5 {
-    top: 90%;
-    left: -100%;
-    animation: moveLine3 3s infinite alternate ease-in-out;
-}
-
-@keyframes moveLine1 {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
-@keyframes moveLine2 {
-    0% { left: 100%; }
-    100% { left: -100%; }
-}
-
-@keyframes moveLine3 {
-    0% { left: -100%; }
-    100% { left: 100%; }
 }
