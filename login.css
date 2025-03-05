@@ -208,7 +208,26 @@ p {
     height: 2.5rem;
     margin-top: 1.3rem;
 }
+.signup{
+    background-color: #FFE535;
+    color:var(--black-clr);
+    border: none;
+    margin-left: 0.5rem;
+    border-radius: 3px;
+    padding: 2px;
+    height: 1.7rem;
+    width: 4.2rem;
+    font-size: 12px;
+    text-align: center;
+    padding-right: 10px;
+    cursor: pointer;
+    transition: transform 0.4s;
+}
 
+.signup:hover{
+    background-color: #fff;
+    transition: transform scale(1.1);
+}
 .login-btn:hover {
     background-color: #fff;
 }
@@ -252,7 +271,7 @@ p {
 
 /* Preloader */
 
-
+/* 
 .preloader {
 position: fixed;
 top: 0;
@@ -318,4 +337,4 @@ color: var(--primary-clr);
 100% {
     transform: rotate(360deg);
 }
-}
+} */
