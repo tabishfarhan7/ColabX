@@ -219,7 +219,7 @@ p {
     width: 4.2rem;
     font-size: 12px;
     text-align: center;
-    padding-right: 10px;
+    padding-right: 9px;
     cursor: pointer;
     transition: transform 0.4s;
 }
@@ -270,8 +270,6 @@ p {
 
 
 /* Preloader */
-
-/* 
 .preloader {
 position: fixed;
 top: 0;
@@ -337,4 +335,4 @@ color: var(--primary-clr);
 100% {
     transform: rotate(360deg);
 }
-} */
+}
