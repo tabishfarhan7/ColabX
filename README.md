@@ -14,7 +14,7 @@
 </p>
 
 
-![ColabX1](https://github.com/tabishfarhan7/ColabX/blob/main/assets/Screenshot%202025-03-09%20173833.png)
+![ColabX1](https://github.com/tabishfarhan7/ColabX/blob/main/assets/Screenshot%202025-03-09%20162904.png)
 
 ![Login](https://github.com/tabishfarhan7/ColabX/blob/main/assets/readme.png)
 
