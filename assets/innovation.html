@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="in.css">
 </head>
 <body>
+ <!-- Preloader  -->
+ <div class="preloader"> 
+    <div class="loader">
+        <div class="loader-circle"></div>
+        <div class="loader-circle"></div>
+        <div class="loader-text">Colab<span>X</span></div>
+    </div>
+</div>  
 
 <header>
     <nav class="navbar flex">
@@ -146,5 +154,15 @@
     </div>
     <div class="post-divider"></div> <!-- Divider -->
 </section>
+
+<script>
+     window.addEventListener('load', function() {
+        setTimeout(function() {
+            document.querySelector('.preloader').classList.add('hidden');
+        }, 1000);
+    });
+
+
+</script>
 </body>
 </html>
