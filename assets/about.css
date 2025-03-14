@@ -225,8 +225,8 @@ span{
 .hero {
     position: relative;
     width: 100%;
-    height: 450px; /* Adjust height as needed */
-    background: url('office.jpg') no-repeat center center/cover; /* Replace with your actual image */
+    height: 32rem; 
+    background: url('office.jpg') no-repeat center center/cover; 
     display: flex;
     align-items: center;
     padding-left: 10%;
@@ -238,9 +238,9 @@ span{
 }
 
 .hero-content h1 {
-    font-size: 42px;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-size: 3rem;
+    font-weight: normal;
+    margin-bottom: 11px;
 }
 
 .hero-content p {
@@ -248,3 +248,49 @@ span{
     line-height: 1.5;
 }
 
+.container1 {
+    width: 80%;
+    margin: auto;
+}
+h2 {
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-top: 2rem;
+    /* margin-left: 8rem; */
+    text-align: center;
+}
+.container1 p {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    /* margin-left: 8rem; */
+    color: var(--light-black);
+    text-align: center;
+}
+.team-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.3rem;
+    margin-top: 20px;
+}
+.team-member {
+    width: 250px;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.team-member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.team-member h3 {
+    margin: 10px 0;
+}
+.team-member p {
+    font-size: 14px;
+    color: #555;
+}
