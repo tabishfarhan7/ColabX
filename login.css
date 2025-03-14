@@ -177,7 +177,7 @@ p {
     border: 1px solid rgba(255, 255, 255, 0.3);
     border: none;
     border-radius: 5px;
-    color: white;
+    color: var(--black-clr);
     font-size: 12px;
 }
 
@@ -204,7 +204,7 @@ p {
     margin-top: 1.3rem;
 }
 .signup{
-    background-color: #FFE535;
+    background-color: var(--primary-clr);
     color:var(--black-clr);
     border: none;
     margin-left: 0.5rem;
@@ -216,12 +216,13 @@ p {
     text-align: center;
     padding-right: 9px;
     cursor: pointer;
-    transition: transform 0.4s;
+    transition: transform 0.4s ease-in-out;
 }
 
 .signup:hover{
-    background-color: #fff;
-    transition: transform scale(1.1);
+    background-color:var(--white-clr);
+    /* transition: transform scale(1.1); */
+    transform: scale(1.05);
 }
 .login-btn:hover {
     background-color: #fff;
