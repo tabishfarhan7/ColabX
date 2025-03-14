@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="about.css">
+    
+    
+    
+</head>
+
+
+
+<body>
+
+     <!-- Preloader  -->
+      <div class="preloader"> 
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-text">Colab<span>X</span></div>
+        </div>
+    </div>  
+    
+
+    <!-- Header -->
+    <header>
+    
+        <nav class="navbar flex">
+            <a href="#" class="logo">
+                Colab<span>X</span>
+            </a>
+            <ul  class="navlist flex">
+                <li><a href="index.html" class="link" data-key="home">Home</a></li>
+                <li><a href="#" class="link" data-key="project">Project</a></li>
+                <li><a href="assets/innovation.html" class="link" data-key="innovation">Innovation</a></li>
+                <li><a href="#" class="link" data-key="community">Community</a></li>
+                <li><a href="login.html" class="link" data-key="login">Login</a></li>
+                
+            </ul>
+            <div class="user-actions">
+                <button class="btn register" data-key="register">Register</button>
+<button class="btn sign-in" data-key="signIn"><a href="login.html">Sign in</a></button>
+
+    
+                <!-- Language Selector -->
+                <div class="language-dropdown">
+                    <button class="lang-btn">
+                        <i class="fa-solid fa-globe"></i> EN
+                    </button>
+                    <ul class="language-list">
+                        <li>English</li>
+                        <li>አማርኛ</li>
+                        <li>العربية</li>
+                        <li>বাংলা</li>
+                        <li>简体中文</li>
+                        <li>Français</li>
+                        <li>हिंदी</li>
+                        <li>Bahasa Indonesia</li>
+                        <li>Português</li>
+                        <li>Español</li>
+                        <li>Kiswahili</li>
+                        <li>ไทย</li>
+                        <li>اردو</li>
+                        <li>Tiếng Việt</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section>
+        <div class="about">
+            <div class="container">
+                <div class="content">
+                    ColabX Team Pro
+                    <img src="assets/office-865091.jpg" alt="">
+            </div>
+    </section>
+
+    <script>
+        window.addEventListener('load', function() {
+               setTimeout(function() {
+                   document.querySelector('.preloader').classList.add('hidden');
+               }, 1000);
+           });
+       
+       
+           // dropdown
+           document.addEventListener("DOMContentLoaded", function () {
+           const langDropdown = document.querySelector(".language-dropdown");
+           const langBtn = document.querySelector(".lang-btn");
+       
+           langBtn.addEventListener("click", function () {
+               langDropdown.classList.toggle("active");
+           });
+       
+           // Close dropdown when clicking outside
+           document.addEventListener("click", function (event) {
+               if (!langDropdown.contains(event.target)) {
+                   langDropdown.classList.remove("active");
+               }
+           });
+       });
+       
+       
+       
+       // language changer
+       document.addEventListener("DOMContentLoaded", function () {
+           const langBtn = document.querySelector(".lang-btn");
+           const langDropdown = document.querySelector(".language-dropdown");
+           const langOptions = document.querySelectorAll(".language-list li");
+       
+           // Object containing translations
+           const translations = {
+               en: {
+                   home: "Home",
+                   project: "Project",
+                   innovation: "Innovation",
+                   community: "Community",
+                   login: "Login",
+                   register: "Register",
+                   signIn: "Sign in",
+               },
+               ar: {
+                   home: "الرئيسية",
+                   project: "مشروع",
+                   innovation: "ابتكار",
+                   community: "مجتمع",
+                   login: "تسجيل الدخول",
+                   register: "تسجيل",
+                   signIn: "تسجيل الدخول",
+               },
+           };
+       
+           // Set current language from localStorage
+           function setLanguage(lang) {
+               localStorage.setItem("selectedLanguage", lang);
+               document.documentElement.lang = lang; // Update HTML language attribute
+       
+               // Apply translations
+               document.querySelector(".navlist .link:nth-child(1)").textContent = translations[lang].home;
+               document.querySelector(".navlist .link:nth-child(2)").textContent = translations[lang].project;
+               document.querySelector(".navlist .link:nth-child(3)").textContent = translations[lang].innovation;
+               document.querySelector(".navlist .link:nth-child(4)").textContent = translations[lang].community;
+               document.querySelector(".navlist .link:nth-child(5)").textContent = translations[lang].login;
+               document.querySelector(".register").textContent = translations[lang].register;
+               document.querySelector(".sign-in").textContent = translations[lang].signIn;
+       
+               // Adjust for RTL languages
+               if (lang === "ar") {
+                   document.body.style.direction = "rtl"; // Right-to-left
+                   document.body.style.textAlign = "right";
+               } else {
+                   document.body.style.direction = "ltr"; // Left-to-right
+                   document.body.style.textAlign = "left";
+               }
+           }
+       
+           // Detect saved language
+           const savedLang = localStorage.getItem("selectedLanguage") || "en";
+           setLanguage(savedLang);
+       
+           // Handle language selection
+           langOptions.forEach((option) => {
+               option.addEventListener("click", function () {
+                   const selectedLang = this.textContent === "العربية" ? "ar" : "en"; // Add more languages here
+                   setLanguage(selectedLang);
+               });
+           });
+       
+           // Toggle dropdown
+           langBtn.addEventListener("click", function () {
+               langDropdown.classList.toggle("active");
+           });
+       
+           document.addEventListener("click", function (e) {
+               if (!langDropdown.contains(e.target) && !langBtn.contains(e.target)) {
+                   langDropdown.classList.remove("active");
+               }
+           });
+       });
+       
+       </script>
+       
+       </body>
+       </html>
+       

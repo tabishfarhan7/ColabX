@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+:root{
+    --white-clr: #fff;
+    --black-clr:#000;
+    --light-black:#333;
+    --primary-clr:#FFE535;
+    --secondary-clr:#eee;
+    --tag-clr:#56ac4e;
+    --gradient-primary: linear-gradient(45deg, #ff7e5f, #feb47b);
+    --text-dark: #333;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+/* a:hover{
+    color: var(--light-black);
+} */
+body[lang="ar"] {
+    direction: rtl;
+    text-align: right;
+}
+header{
+    background:var(--white-clr);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    box-shadow: 0px 5px 14.25px .75px rgba(36, 11,12,.05);
+}
+
+.logo{
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--black-clr);
+    padding-left: 1.5rem;
+}
+span{
+    color: var(--primary-clr);
+}
+
+.link{
+    font-size: .80rem;
+    color: var(--black-clr);
+    text-transform: uppercase;
+    font-weight: 400;
+ }
+ .icon{
+    font-size: .9rem;
+    color: var(--black-clr);
+    /* background:var(--secondary-clr) ; */
+    width:40px ;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+ }
+
+ .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-right: 2rem;
+    padding-bottom: 0.55rem;
+    /* margin-left: 15rem; */
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 0.7rem;
+    font-weight: 405;
+    text-transform: uppercase;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+    
+
+
+}
+
+.register {
+    background-color: #FFE535;
+    color: #000;
+    font-weight: 1rem;
+    border: none;
+    
+}
+
+.sign-in {
+    background-color: #f5f5f5;
+    color: var(--black-clr);
+    border: 1px solid #ddd;
+}
+.sign-in a{
+    color: var(--black-clr);
+}
+
+.register:hover {
+    background-color: #FFD700; /* Darker yellow on hover */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+
+.sign-in:hover {
+    background-color: #FFD700;; /* Slightly darker shade */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+.language-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    margin-right: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.lang-btn i {
+    font-size: 1.2rem;
+}
+
+.language-list {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    list-style: none;
+    border-radius: 5px;
+    box-shadow: 0 5px 14.25px 0.75px rgba(36, 11, 12, 0.1);
+    padding: 10px;
+    min-width: 150px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+/* Show dropdown smoothly when active */
+.language-dropdown.active .language-list {
+    max-height: 300px; /* Expands the list */
+    opacity: 1;
+    overflow-y: auto;
+}
+
+.language-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.language-list li:hover {
+    background: #f5f5f5;
+}
+
+.navbar{
+    height: 12vh;
+    justify-content: space-between;
+    /* padding-left: 2rem; */
+}
+.navlist{
+    gap: 3rem;
+    padding-left: 3rem;
+    /* text-sh=3adow: 0 0 15px #8e54e9; */
+  transition: all 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.navlist li {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px; /* Adds some space for the underline effect */
+}
+
+.navlist li::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-clr); /* Primary color underline */
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.navlist li:hover::after {
+    width: 100%;
+    left: 0;
+}
+.user-logo{
+    padding-right: 3rem;
+}
