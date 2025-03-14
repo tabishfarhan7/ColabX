@@ -217,3 +217,28 @@ span{
 .user-logo{
     padding-right: 3rem;
 }
+
+.content {
+    position: relative;
+    display: inline-block;
+}
+
+.content img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;  /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for exact centering */
+    background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+    color: white;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+}
