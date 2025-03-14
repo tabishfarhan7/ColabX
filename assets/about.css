@@ -218,27 +218,33 @@ span{
     padding-right: 3rem;
 }
 
-.content {
+
+/* <-------section-------> */
+
+        
+.hero {
     position: relative;
-    display: inline-block;
-}
-
-.content img {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 450px; /* Adjust height as needed */
+    background: url('office.jpg') no-repeat center center/cover; /* Replace with your actual image */
+    display: flex;
+    align-items: center;
+    padding-left: 10%;
 }
 
-.overlay-text {
-    position: absolute;
-    top: 50%;  /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Adjust for exact centering */
-    background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+.hero-content {
+    max-width: 500px;
     color: white;
-    padding: 10px 20px;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 5px;
-    text-align: center;
 }
+
+.hero-content h1 {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
