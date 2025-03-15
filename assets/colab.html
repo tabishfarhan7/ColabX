@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="colab.css">
+    
+    
+    
+</head>
+
+
+
+<body>
+
+     <!-- Preloader  -->
+      <div class="preloader"> 
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-text">Colab<span>X</span></div>
+        </div>
+    </div>  
+    
+
+    <!-- Header -->
+    <header>
+    
+        <nav class="navbar flex">
+            <a href="#" class="logo">
+                Colab<span>X</span>
+            </a>
+            <ul  class="navlist flex">
+                <li><a href="/index.html" class="link" data-key="home">Home</a></li>
+                <li><a href="assets/colab.html" class="link" data-key="project">Project</a></li>
+                <li><a href="assets/innovation.html" class="link" data-key="innovation">Innovation</a></li>
+                <li><a href="assets/about.html" class="link" data-key="community">About Us</a></li>
+                <li><a href="/login.html" class="link" data-key="login">Login</a></li>
+                
+            </ul>
+            <div class="user-actions">
+                <button class="btn register" data-key="register">Register</button>
+<button class="btn sign-in" data-key="signIn"><a href="login.html">Sign in</a></button>
+
+    
+                <!-- Language Selector -->
+                <div class="language-dropdown">
+                    <button class="lang-btn">
+                        <i class="fa-solid fa-globe"></i> EN
+                    </button>
+                    <ul class="language-list">
+                        <li>English</li>
+                        <li>አማርኛ</li>
+                        <li>العربية</li>
+                        <li>বাংলা</li>
+                        <li>简体中文</li>
+                        <li>Français</li>
+                        <li>हिंदी</li>
+                        <li>Bahasa Indonesia</li>
+                        <li>Português</li>
+                        <li>Español</li>
+                        <li>Kiswahili</li>
+                        <li>ไทย</li>
+                        <li>اردو</li>
+                        <li>Tiếng Việt</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <section class="idea-upload">
+        <h2>Submit Your Idea</h2>
+        <form id="ideaForm">
+            <label for="ideaTitle">Idea Title:</label>
+            <input type="text" id="ideaTitle" name="ideaTitle" placeholder="Enter your idea title" required>
+    
+            <label for="ideaDescription">Description:</label>
+            <textarea id="ideaDescription" name="ideaDescription" placeholder="Describe your idea..." required></textarea>
+    
+            <label for="ideaFile">Upload File (Optional):</label>
+            <input type="file" id="ideaFile" name="ideaFile" accept=".png, .jpg, .jpeg, .pdf">
+    
+            <button class="submit" type="submit">Submit Idea</button>
+        </form>
+    </section>
+    <script src="colab.js"></script>
+    
+</body>
+</html>
