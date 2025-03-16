@@ -40,6 +40,10 @@ a{
 body[lang="ar"] {
     direction: rtl;
     text-align: right;
+    background: url(colab.mp4);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 header{
     background:var(--white-clr);
