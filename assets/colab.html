@@ -81,13 +81,55 @@
             <label for="ideaDescription">Description:</label>
             <textarea id="ideaDescription" name="ideaDescription" placeholder="Describe your idea..." required></textarea>
     
-            <label for="ideaFile">Upload File (Optional):</label>
+            <label for="problemAddressed">Problem Addressed:</label>
+            <textarea id="problemAddressed" name="problemAddressed" placeholder="What problem does your idea solve?" required></textarea>
+    
+            <label for="objectives">Objectives:</label>
+            <textarea id="objectives" name="objectives" placeholder="List the main objectives of your idea" required></textarea>
+    
+            <label for="stateOfArt">State of the Art/Research Gap:</label>
+            <textarea id="stateOfArt" name="stateOfArt" placeholder="Describe the novelty and research gap your idea addresses" required></textarea>
+    
+            <label for="detailedDescription">Detailed Description:</label>
+            <textarea id="detailedDescription" name="detailedDescription" placeholder="Provide a complete technical description" required></textarea>
+    
+            <label for="resultsAdvantages">Results and Advantages:</label>
+            <textarea id="resultsAdvantages" name="resultsAdvantages" placeholder="List key advantages over existing solutions" required></textarea>
+    
+            <label for="expansion">Future Expansion:</label>
+            <textarea id="expansion" name="expansion" placeholder="How can this idea be expanded in the future?" required></textarea>
+    
+            <label for="existingData">Existing Data/Comparative Analysis:</label>
+            <textarea id="existingData" name="existingData" placeholder="Any existing data supporting your idea" required></textarea>
+    
+            <label for="useDisclosure">Use and Disclosure:</label>
+            <select id="useDisclosure" name="useDisclosure" required>
+                <option value="no">No, this idea has not been disclosed.</option>
+                <option value="yes">Yes, this idea has been disclosed.</option>
+            </select>
+    
+            <label for="commercialization">Potential for Commercialization:</label>
+            <select id="commercialization" name="commercialization" required>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+    
+            <label for="filingOptions">Filing Options:</label>
+            <select id="filingOptions" name="filingOptions" required>
+                <option value="provisional">Provisional Patent Filing</option>
+                <option value="complete">Complete Patent Filing</option>
+                <option value="pct">PCT (International) Filing</option>
+            </select>
+    
+            <label for="ideaFile">Upload Supporting Files (Optional):</label>
             <input type="file" id="ideaFile" name="ideaFile" accept=".png, .jpg, .jpeg, .pdf">
     
             <button class="submit" type="submit">Submit Idea</button>
         </form>
     </section>
     <script src="colab.js"></script>
+    
     
 </body>
 </html>

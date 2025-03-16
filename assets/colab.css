@@ -223,8 +223,6 @@ span{
 }
 
 /* <--------SECTION---------> */
-
-/* Form Container */
 .idea-upload {
     width: 100%;
     max-width: 500px;
@@ -249,7 +247,6 @@ span{
     margin-bottom: 15px;
 }
 
-/* Form Elements */
 #ideaForm {
     display: flex;
     flex-direction: column;
@@ -257,7 +254,6 @@ span{
     gap: 12px;
 }
 
-/* Labels */
 #ideaForm label {
     width: 100%;
     text-align: left;
@@ -265,9 +261,9 @@ span{
     margin-bottom: 5px;
 }
 
-/* Input Fields */
 #ideaForm input,
-#ideaForm textarea {
+#ideaForm textarea,
+#ideaForm select {
     width: 100%;
     padding: 10px;
     border: 2px solid #ddd;
@@ -277,7 +273,8 @@ span{
 }
 
 #ideaForm input:focus,
-#ideaForm textarea:focus {
+#ideaForm textarea:focus,
+#ideaForm select:focus {
     border-color: #ffcc00;
     outline: none;
     box-shadow: 0px 0px 8px rgba(255, 204, 0, 0.5);
@@ -288,13 +285,6 @@ textarea {
     resize: vertical;
 }
 
-/* File Upload */
-#ideaFile {
-    width: 100%;
-    padding: 8px;
-}
-
-/* Submit Button */
 .submit {
     width: 100%;
     padding: 12px;
@@ -312,12 +302,10 @@ textarea {
     transform: scale(1.03);
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
     .idea-upload {
         padding: 20px;
     }
-
     button {
         font-size: 14px;
     }
