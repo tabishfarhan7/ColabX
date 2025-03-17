@@ -118,17 +118,24 @@ span{
     height: 100vh; /* Full screen height */
     width: 100%;
 }
+.video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full screen height */
+    overflow: hidden;
+}
 
 .video video {
-    width: 25.5rem; /* Makes the video responsive */
-height: 34rem;
-position: relative;
-margin-left: 27rem;
+    width: 25.5rem; 
+    height: 34rem;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: -1; /* Send video to the background */
-    margin-top: 2rem;
 }
 
 .login-box {
