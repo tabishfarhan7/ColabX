@@ -25,6 +25,7 @@ html{
 .flex{
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 li{
@@ -339,3 +340,24 @@ color: var(--primary-clr);
     transform: rotate(360deg);
 }
 }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .login-box {
+        width: 90%;
+        height: auto;
+        padding: 30px;
+    }
+    
+    .video-container video {
+        opacity: 0.3; /* Reduce brightness for better visibility on small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .login-box {
+        width: 95%;
+        padding: 20px;
+    }
+}
+
