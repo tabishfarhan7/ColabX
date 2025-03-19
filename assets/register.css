@@ -449,7 +449,45 @@ span{
     border-radius: 5px;
     outline: none;
 }
+.login{
+    background-color: var(--primary-clr);
+    color:var(--black-clr);
+    border: none;
+    margin-left: 0.5rem;
+    border-radius: 3px;
+    padding: 2px;
+    height: 1.7rem;
+    width: 4.2rem;
+    font-size: 12px;
+    text-align: center;
+    padding-right: 9px;
+    cursor: pointer;
+    transition: transform 0.4s ease-in-out;
+}
 
+.login:hover{
+    background-color:var(--white-clr);
+    /* transition: transform scale(1.1); */
+    transform: scale(1.05);
+}
+.separator-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.3rem;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: #444;
+    margin: 0 10px;
+}
+
+.separator {
+    color: #777;
+    font-size: 14px;
+}
 .input-group {
     display: flex;
     align-items: center;
