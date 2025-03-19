@@ -69,11 +69,33 @@ ColabX/
 
 - **Sahil Yadav** <a href="https://github.com/imsahil11" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="GitHub" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a>
 
-- **Md Tabish Farhan** <a href="https://github.com/tabishfarhan7" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="GitHub" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a><a href="https://www.linkedin.com/in/md-tabish-farhan/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a> <a href="https://www.instagram.com/tabishfarhan_7/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle; margin-left: 5px;"></a>
+- **Md Tabish Farhan** 
+  <a href="https://github.com/tabishfarhan7" target="_blank">
+    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="GitHub" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">
+  </a>
+  <a href="https://www.linkedin.com/in/md-tabish-farhan/" target="_blank">
+    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">
+  </a>
+  <a href="https://www.instagram.com/tabishfarhan_7/" target="_blank">
+    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle;">
+  </a>
 
-- **Yatish Yadav** <a href="https://www.linkedin.com/in/yatishydv" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a> <a href="https://www.instagram.com/yatishydv" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle; margin-left: 5px;"></a>
+- **Yatish Yadav** 
+  <a href="https://www.linkedin.com/in/yatishydv" target="_blank">
+    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">
+  </a>
+  <a href="https://www.instagram.com/yatishydv" target="_blank">
+    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle;">
+  </a>
 
-- **Dev Sharma** <a href="https://linkedin.com/in/dev_profile" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a> <a href="https://www.instagram.com/dev_sharmaa._" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle; margin-left: 5px;"></a>
+- **Dev Sharma** 
+  <a href="https://linkedin.com/in/dev_profile" target="_blank">
+    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">
+  </a>
+  <a href="https://www.instagram.com/dev_sharmaa._" target="_blank">
+    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle;">
+  </a>
+
 
 
 
