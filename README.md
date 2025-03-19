@@ -2,6 +2,13 @@
 
 A platform bridging the gap between government initiatives and entrepreneurial innovation through cutting-edge technology and collaboration.
 
+## Contributors
+
+- **Tabish Farhan**
+- **Sahil Yadav**
+- **Yatish Yadav**
+- **Dev Sharma**
+
 ## Project Structure
 
 The project is organized as follows:
@@ -54,20 +61,22 @@ ColabX/
 
 ## Technical Details
 
-- Built using HTML, CSS, and vanilla JavaScript
+- Built using HTML, CSS, and JavaScript
 - Responsive design for all device sizes
 - Font Awesome for icons
 
-- 💬 Ask me about **HTML,CSS3,JS**
+## Connect With Us
 
-- 📫 How to reach me **tabishfarhan853@gmail.com**
-
-<h3 align="left">Connect with me:</h3>
+<h3 align="left">Connect with the team:</h3>
 <p align="left">
-<a href="https://www.linkedin.com/in/md-tabish-farhan/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="tabishfarhan7" height="30" width="40" /></a>
-<a href="https://www.instagram.com/tabishfarhan_7/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="tabishfarhan7r" height="30" width="40" /></a>
+<a href="https://github.com/sahil-yadav" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="Sahil Yadav" height="30" width="40" /></a>
+<a href="https://www.linkedin.com/in/md-tabish-farhan/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="Tabish Farhan" height="30" width="40" /></a>
+<a href="https://www.instagram.com/tabishfarhan_7/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Tabish Farhan" height="30" width="40" /></a>
+<a href="https://www.linkedin.com/in/yatishydv" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="Yatish Yadav" height="30" width="40" /></a>
+<a href="https://www.instagram.com/yatishydv" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Yatish Yadav" height="30" width="40" /></a>
+<a href="https://linkedin.com/in/dev_profile" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="Dev Sharma" height="30" width="40" /></a>
+<a href="https://www.instagram.com/dev_sharmaa._" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Dev Sharma" height="30" width="40" /></a>
 </p>
-
 
 ![ColabX1](https://github.com/tabishfarhan7/ColabX/blob/main/images/Screenshot%202025-03-09%20162904.png)
 
