@@ -67,8 +67,6 @@ ColabX/
 
 ## Connect With Us
 
-Connect with our team members:
-
 - **Sahil Yadav** <a href="https://github.com/imsahil11" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="GitHub" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a>
 
 - **Tabish Farhan** <a href="https://www.linkedin.com/in/md-tabish-farhan/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a> <a href="https://www.instagram.com/tabishfarhan_7/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle; margin-left: 5px;"></a>
