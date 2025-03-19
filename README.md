@@ -4,7 +4,7 @@ A platform bridging the gap between government initiatives and entrepreneurial i
 
 ## Contributors
 
-- **Tabish Farhan**
+- **Md Tabish Farhan**
 - **Sahil Yadav**
 - **Yatish Yadav**
 - **Dev Sharma**
@@ -69,7 +69,7 @@ ColabX/
 
 - **Sahil Yadav** <a href="https://github.com/imsahil11" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="GitHub" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a>
 
-- **Tabish Farhan** <a href="https://www.linkedin.com/in/md-tabish-farhan/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a> <a href="https://www.instagram.com/tabishfarhan_7/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle; margin-left: 5px;"></a>
+- **Md Tabish Farhan** <a href="https://github.com/tabishfarhan7" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="GitHub" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a><a href="https://www.linkedin.com/in/md-tabish-farhan/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a> <a href="https://www.instagram.com/tabishfarhan_7/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle; margin-left: 5px;"></a>
 
 - **Yatish Yadav** <a href="https://www.linkedin.com/in/yatishydv" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a> <a href="https://www.instagram.com/yatishydv" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle; margin-left: 5px;"></a>
 
@@ -77,8 +77,10 @@ ColabX/
 
 
 
-![ColabX1](https://github.com/tabishfarhan7/ColabX/blob/main/images/Screenshot%202025-03-09%20162904.png)
+![ColabX1](https://github.com/tabishfarhan7/ColabX/blob/main/images/ss1.png)
 
-![Login](https://github.com/tabishfarhan7/ColabX/blob/main/images/readme.png)
+![Login](https://github.com/tabishfarhan7/ColabX/blob/main/images/ss3.png)
 
-![Innovation](https://github.com/tabishfarhan7/ColabX/blob/main/images/inn.png)
+![About us](https://github.com/tabishfarhan7/ColabX/blob/main/images/ss2.png)
+
+![Innovation](https://github.com/tabishfarhan7/ColabX/blob/main/images/ss4.png)
