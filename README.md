@@ -67,16 +67,17 @@ ColabX/
 
 ## Connect With Us
 
-<h3 align="left">Connect with the team:</h3>
-<p align="left">
-<a href="https://github.com/sahil-yadav" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="Sahil Yadav" height="30" width="40" /></a>
-<a href="https://www.linkedin.com/in/md-tabish-farhan/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="Tabish Farhan" height="30" width="40" /></a>
-<a href="https://www.instagram.com/tabishfarhan_7/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Tabish Farhan" height="30" width="40" /></a>
-<a href="https://www.linkedin.com/in/yatishydv" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="Yatish Yadav" height="30" width="40" /></a>
-<a href="https://www.instagram.com/yatishydv" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Yatish Yadav" height="30" width="40" /></a>
-<a href="https://linkedin.com/in/dev_profile" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="Dev Sharma" height="30" width="40" /></a>
-<a href="https://www.instagram.com/dev_sharmaa._" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Dev Sharma" height="30" width="40" /></a>
-</p>
+Connect with our team members:
+
+- **[Sahil Yadav](https://github.com/sahil-yadav)** <a href="https://github.com/sahil-yadav" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="GitHub" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a>
+
+- **Tabish Farhan** <a href="https://www.linkedin.com/in/md-tabish-farhan/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a> <a href="https://www.instagram.com/tabishfarhan_7/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle; margin-left: 5px;"></a>
+
+- **Yatish Yadav** <a href="https://www.linkedin.com/in/yatishydv" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a> <a href="https://www.instagram.com/yatishydv" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle; margin-left: 5px;"></a>
+
+- **Dev Sharma** <a href="https://linkedin.com/in/dev_profile" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" width="20" height="20" style="vertical-align: middle; margin-left: 8px;"></a> <a href="https://www.instagram.com/dev_sharmaa._" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="Instagram" width="20" height="20" style="vertical-align: middle; margin-left: 5px;"></a>
+
+📫 **Contact us**: tabishfarhan853@gmail.com
 
 ![ColabX1](https://github.com/tabishfarhan7/ColabX/blob/main/images/Screenshot%202025-03-09%20162904.png)
 
