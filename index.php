@@ -29,20 +29,20 @@
     <header>
     
         <nav class="navbar flex">
-            <a href="index.html" class="logo">
+            <a href="index.php" class="logo">
                 Colab<span>X</span>
             </a>
             <ul  class="navlist flex">
-                <li><a href="index.html" class="link" data-key="home">Home</a></li>
-                <li><a href="pages/colab.html" class="link" data-key="project">Project</a></li>
-                <li><a href="pages/innovation.html" class="link" data-key="innovation">Innovation</a></li>
-                <li><a href="pages/about.html" class="link" data-key="community">About Us</a></li>
-                <li><a href="pages/login.html" class="link" data-key="login">Login</a></li>
+                <li><a href="index.php" class="link" data-key="home">Home</a></li>
+                <li><a href="pages/colab.php" class="link" data-key="project">Project</a></li>
+                <li><a href="pages/innovation.php" class="link" data-key="innovation">Innovation</a></li>
+                <li><a href="pages/about.php" class="link" data-key="community">About Us</a></li>
+                <li><a href="pages/login.php" class="link" data-key="login">Login</a></li>
                 
             </ul>
             <div class="user-actions">
                 <button class="btn register" data-key="register">Register</button>
-<button class="btn sign-in" data-key="signIn"><a href="pages/login.html">Sign in</a></button>
+<button class="btn sign-in" data-key="signIn"><a href="pages/login.php">Sign in</a></button>
 
     
                 <!-- Language Selector -->

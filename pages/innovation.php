@@ -20,7 +20,7 @@
 <header>
     <nav class="navbar flex">
         <!-- Logo -->
-        <a href="../index.html" class="logo">
+        <a href="../index.php" class="logo">
             Colab<span>X</span>
         </a>
         

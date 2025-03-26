@@ -6,12 +6,7 @@
     <title>ColabX - Register</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/register.css">
-    
-    
-    
 </head>
-
-
 
 <body>
 
@@ -24,27 +19,23 @@
         </div>
     </div>  
     
-
     <!-- Header -->
     <header>
-    
         <nav class="navbar flex">
-            <a href="../index.html" class="logo">
+            <a href="../index.php" class="logo">
                 Colab<span>X</span>
             </a>
-            <ul  class="navlist flex">
-                <li><a href="../index.html" class="link" data-key="home">Home</a></li>
-                <li><a href="colab.html" class="link" data-key="project">Project</a></li>
-                <li><a href="innovation.html" class="link" data-key="innovation">Innovation</a></li>
-                <li><a href="about.html" class="link" data-key="community">About Us</a></li>
-                <li><a href="login.html" class="link" data-key="login">Login</a></li>
-                
+            <ul class="navlist flex">
+                <li><a href="../index.php" class="link" data-key="home">Home</a></li>
+                <li><a href="colab.php" class="link" data-key="project">Project</a></li>
+                <li><a href="innovation.php" class="link" data-key="innovation">Innovation</a></li>
+                <li><a href="about.php" class="link" data-key="community">About Us</a></li>
+                <li><a href="login.php" class="link" data-key="login">Login</a></li>
             </ul>
             <div class="user-actions">
                 <button class="btn register" data-key="register">Register</button>
-<button class="btn sign-in" data-key="signIn"><a href="login.html">Sign in</a></button>
+                <button class="btn sign-in" data-key="signIn"><a href="login.php">Sign in</a></button>
 
-    
                 <!-- Language Selector -->
                 <div class="language-dropdown">
                     <button class="lang-btn">
@@ -71,14 +62,6 @@
         </nav>
     </header>
 
-    <!-- <div class="preloader">
-        <div class="loader">
-            <div class="loader-circle"></div>
-            <div class="loader-circle"></div>
-            <div class="loader-text">Colab<span>X</span></div>
-        </div>
-    </div> -->
-
     <div class="register-container">
         <div class="video-background">
             <video src="../videos/colab.mp4" loop autoplay muted playsinline></video>
@@ -86,7 +69,7 @@
 
         <div class="register-box">
             <h2>Create an Account</h2>
-            <p>Already have an account? <a href="login.html" class="login-link"> <button class="login">&nbspLog in</button></a></p>
+            <p>Already have an account? <a href="login.php" class="login-link"> <button class="login">&nbspLog in</button></a></p>
 
             <select id="userType" class="user-type">
                 <option value="normal">Normal User</option>
@@ -135,15 +118,10 @@
                 <a href="#"><img src="../images/x (1).png" alt="X Login"></a>
                 <a href="#"><img src="../images/x (2).png" alt="Google Login"></a>
                 <a href="#"><img src="../images/x (3).png" alt="Apple Login"></a>
-                
             </div>
         </div>
-        
     </div>
 
     <script src="../js/register.js"></script>
-      
-
-
 </body>
 </html>
