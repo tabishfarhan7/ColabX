@@ -318,9 +318,7 @@ span{
 }
 
 
-/* Preloader */
-
-
+/* Preloader Styles */
 .preloader {
     position: fixed;
     top: 0;
@@ -350,7 +348,7 @@ span{
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 7px solid transparent;
+    border: 8px solid transparent;
     border-top-color: var(--primary-clr);
     border-radius: 50%;
     animation: spin 1.2s linear infinite;
@@ -369,10 +367,15 @@ span{
 .loader-text {
     position: absolute;
     top: 50%;
-    left: 53%;
+    left: 50%;
     transform: translate(-50%, -50%);
     font-weight: bold;
     font-size: 0.9rem;
+    text-align: center;
+    background-color: var(--white-clr);
+    padding: 2px 4px;
+    border-radius: 4px;
+    z-index: 2;
 }
 
 .loader-text span {
@@ -387,6 +390,7 @@ span{
         transform: rotate(360deg);
     }
 }
+
 .register-container {
     display: flex;
     justify-content: center;
