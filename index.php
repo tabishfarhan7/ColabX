@@ -41,7 +41,7 @@
                 
             </ul>
             <div class="user-actions">
-                <button class="btn register" data-key="register">Register</button>
+                <button class="btn register" data-key="register"><a href="pages/register.php">Register</a></button>
 <button class="btn sign-in" data-key="signIn"><a href="pages/login.php">Sign in</a></button>
 
     
