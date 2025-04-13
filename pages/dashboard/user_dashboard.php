@@ -413,6 +413,10 @@ $totalInteractions = 27;
                             <div class="info-value"><?php echo htmlspecialchars($userData['email']); ?></div>
                         </div>
                         <div class="info-item">
+                            <div class="info-label">Bio</div>
+                            <div class="info-value"><?php echo !empty($userData['bio']) ? htmlspecialchars($userData['bio']) : 'No bio provided'; ?></div>
+                        </div>
+                        <div class="info-item">
                             <div class="info-label">Interests</div>
                             <div class="info-value">Smart Cities, Renewable Energy, Education</div>
                         </div>
@@ -422,7 +426,7 @@ $totalInteractions = 27;
                         </div>
                         <div class="info-item">
                             <div class="info-label">Member Since</div>
-                            <div class="info-value">November 2023</div>
+                            <div class="info-value"><?php echo !empty($userData['created_at']) ? date('F Y', strtotime($userData['created_at'])) : 'Unknown'; ?></div>
                         </div>
                     </div>
                     
@@ -461,7 +465,8 @@ $totalInteractions = 27;
                     
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($userData['email']); ?>" required>
+                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($userData['email']); ?>" readonly class="readonly-field">
+                        <p class="help-text">Email address cannot be changed for security reasons.</p>
                     </div>
                     
                     <div class="form-group">
@@ -549,22 +554,30 @@ $totalInteractions = 27;
                     <div class="form-section">
                         <h4>Account Privacy</h4>
                         <div class="form-group radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="privacyPublic" name="privacyLevel" value="public" <?php echo (!isset($userData['privacy_level']) || $userData['privacy_level'] == 'public') ? 'checked' : ''; ?>>
-                                <label for="privacyPublic">Public Profile</label>
-                                <p class="help-text">Anyone can see your profile and activities</p>
-                            </div>
-                            
-                            <div class="radio-option">
-                                <input type="radio" id="privacyLimited" name="privacyLevel" value="limited" <?php echo (isset($userData['privacy_level']) && $userData['privacy_level'] == 'limited') ? 'checked' : ''; ?>>
-                                <label for="privacyLimited">Limited Profile</label>
-                                <p class="help-text">Only registered users can see your profile</p>
-                            </div>
-                            
-                            <div class="radio-option">
-                                <input type="radio" id="privacyPrivate" name="privacyLevel" value="private" <?php echo (isset($userData['privacy_level']) && $userData['privacy_level'] == 'private') ? 'checked' : ''; ?>>
-                                <label for="privacyPrivate">Private Profile</label>
-                                <p class="help-text">Only connections can see your profile</p>
+                            <div class="radio-options-container">
+                                <div class="radio-option">
+                                    <div class="radio-header">
+                                        <input type="radio" id="privacyPublic" name="privacyLevel" value="public" <?php echo (!isset($userData['privacy_level']) || $userData['privacy_level'] == 'public') ? 'checked' : ''; ?>>
+                                        <label for="privacyPublic">Public Profile</label>
+                                    </div>
+                                    <p class="help-text">Anyone can see your profile and activities</p>
+                                </div>
+                                
+                                <div class="radio-option">
+                                    <div class="radio-header">
+                                        <input type="radio" id="privacyLimited" name="privacyLevel" value="limited" <?php echo (isset($userData['privacy_level']) && $userData['privacy_level'] == 'limited') ? 'checked' : ''; ?>>
+                                        <label for="privacyLimited">Limited Profile</label>
+                                    </div>
+                                    <p class="help-text">Only registered users can see your profile</p>
+                                </div>
+                                
+                                <div class="radio-option">
+                                    <div class="radio-header">
+                                        <input type="radio" id="privacyPrivate" name="privacyLevel" value="private" <?php echo (isset($userData['privacy_level']) && $userData['privacy_level'] == 'private') ? 'checked' : ''; ?>>
+                                        <label for="privacyPrivate">Private Profile</label>
+                                    </div>
+                                    <p class="help-text">Only connections can see your profile</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1327,12 +1340,14 @@ $totalInteractions = 27;
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
+                    background-color: rgba(0, 0, 0, 0.6);
                     z-index: 1000;
                     justify-content: center;
                     align-items: center;
                     overflow-y: auto;
                     padding: 20px;
+                    backdrop-filter: blur(3px);
+                    transition: all 0.3s ease;
                 }
                 
                 .modal.active {
@@ -1345,24 +1360,26 @@ $totalInteractions = 27;
                 
                 .modal-content {
                     background-color: white;
-                    border-radius: 8px;
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                    border-radius: 12px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
                     width: 100%;
                     max-width: 600px;
-                    animation: modalFadeIn 0.3s ease;
+                    animation: modalFadeIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
                     max-height: 90vh;
                     display: flex;
                     flex-direction: column;
+                    border: 1px solid rgba(0, 0, 0, 0.1);
+                    overflow: hidden;
                 }
                 
                 @keyframes modalFadeIn {
                     from {
                         opacity: 0;
-                        transform: translateY(-20px);
+                        transform: translateY(-30px) scale(0.95);
                     }
                     to {
                         opacity: 1;
-                        transform: translateY(0);
+                        transform: translateY(0) scale(1);
                     }
                 }
                 
@@ -1370,43 +1387,56 @@ $totalInteractions = 27;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    padding: 15px 20px;
+                    padding: 20px 25px;
                     border-bottom: 1px solid #eee;
+                    background-color: #f9f9f9;
                 }
                 
                 .modal-header h3 {
                     margin: 0;
                     color: var(--text-color);
+                    font-size: 1.4rem;
+                    font-weight: 600;
                 }
                 
                 .modal-close {
                     background: none;
                     border: none;
-                    font-size: 1.2rem;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     cursor: pointer;
                     color: #777;
-                    transition: color 0.2s;
+                    transition: all 0.2s;
+                    background-color: rgba(0, 0, 0, 0.05);
                 }
                 
                 .modal-close:hover {
                     color: #333;
+                    background-color: rgba(0, 0, 0, 0.1);
+                    transform: rotate(90deg);
                 }
                 
                 .modal-body {
-                    padding: 20px;
+                    padding: 30px;
                     overflow-y: auto;
                 }
                 
                 /* Form styles */
                 .form-group {
-                    margin-bottom: 20px;
+                    margin-bottom: 25px;
+                    position: relative;
                 }
                 
                 .form-group label {
                     display: block;
-                    margin-bottom: 5px;
+                    margin-bottom: 8px;
                     font-weight: 500;
                     color: #444;
+                    font-size: 0.95rem;
                 }
                 
                 .form-group input[type="text"],
@@ -1414,11 +1444,19 @@ $totalInteractions = 27;
                 .form-group input[type="password"],
                 .form-group textarea {
                     width: 100%;
-                    padding: 10px;
-                    border: 1px solid #ddd;
-                    border-radius: 4px;
-                    font-size: 0.95rem;
-                    transition: border-color 0.3s;
+                    padding: 12px 16px;
+                    border: 2px solid #ddd;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s;
+                    background-color: #fff;
+                }
+                
+                .form-group input[type="text"]:hover,
+                .form-group input[type="email"]:hover,
+                .form-group input[type="password"]:hover,
+                .form-group textarea:hover {
+                    border-color: #bbb;
                 }
                 
                 .form-group input[type="text"]:focus,
@@ -1427,18 +1465,50 @@ $totalInteractions = 27;
                 .form-group textarea:focus {
                     border-color: var(--primary-color);
                     outline: none;
+                    box-shadow: 0 0 0 3px rgba(255, 229, 53, 0.2);
+                }
+                
+                .form-group input[type="file"] {
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #f5f5f5;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    border: 2px dashed #ddd;
+                    transition: all 0.3s;
+                }
+                
+                .form-group input[type="file"]:hover {
+                    border-color: var(--primary-color);
+                    background-color: rgba(255, 229, 53, 0.05);
                 }
                 
                 .form-section {
-                    margin-bottom: 25px;
+                    margin-bottom: 35px;
                     padding-bottom: 20px;
                     border-bottom: 1px solid #eee;
+                    position: relative;
                 }
                 
                 .form-section h4 {
                     margin-top: 0;
-                    margin-bottom: 15px;
+                    margin-bottom: 20px;
                     color: #333;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    position: relative;
+                    padding-left: 15px;
+                }
+                
+                .form-section h4::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 5px;
+                    background-color: var(--primary-color);
+                    border-radius: 3px;
                 }
                 
                 .form-section:last-child {
@@ -1448,31 +1518,145 @@ $totalInteractions = 27;
                 
                 .checkbox-group, .radio-group {
                     margin-bottom: 10px;
+                    display: flex;
+                    align-items: center;
                 }
                 
-                .checkbox-group label, .radio-option label {
+                .checkbox-group input[type="checkbox"],
+                .radio-option input[type="radio"] {
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                }
+                
+                .checkbox-group label, 
+                .radio-option label {
                     display: inline-block;
                     margin-left: 8px;
                     font-weight: 500;
+                    cursor: pointer;
                 }
                 
                 .radio-option {
-                    margin-bottom: 10px;
+                    margin-bottom: 15px;
+                    padding: 15px;
+                    border-radius: 8px;
+                    background-color: #f9f9f9;
+                    transition: all 0.2s;
+                    border: 1px solid #eee;
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 105px;
+                }
+                
+                .radio-option:hover {
+                    background-color: #f0f0f0;
+                    border-color: #ddd;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                }
+                
+                .radio-option input[type="radio"] {
+                    align-self: flex-start;
+                    margin-top: 3px;
+                }
+
+                .radio-option input[type="radio"]:checked + label {
+                    color: var(--primary-dark);
+                    font-weight: 600;
+                }
+                
+                .radio-option:has(input[type="radio"]:checked) {
+                    background-color: rgba(255, 229, 53, 0.1);
+                    border-color: var(--primary-color);
+                }
+                
+                .radio-group .help-text {
+                    margin-top: 5px;
+                    margin-left: 28px;
                 }
                 
                 .help-text {
-                    margin: 3px 0 0 25px;
-                    font-size: 0.8rem;
+                    margin-top: 8px;
+                    font-size: 0.85rem;
                     color: #6c757d;
+                    line-height: 1.4;
+                }
+                
+                .readonly-field {
+                    background-color: #f8f8f8 !important;
+                    border-color: #ddd !important;
+                    cursor: not-allowed;
+                    color: #777;
+                    box-shadow: none !important;
+                }
+                
+                .readonly-field:focus {
+                    border-color: #ddd !important;
+                    box-shadow: none !important;
                 }
                 
                 .form-actions {
                     display: flex;
-                    gap: 10px;
-                    margin-top: 25px;
+                    gap: 15px;
+                    margin-top: 30px;
+                    padding-top: 20px;
+                    border-top: 1px solid #eee;
+                }
+                
+                .form-actions .action-btn {
+                    padding: 12px 24px;
+                    font-size: 1rem;
+                    border-radius: 8px;
+                    transition: all 0.3s;
+                    font-weight: 500;
+                }
+                
+                .form-actions .primary-btn {
+                    background-color: var(--primary-color);
+                    color: var(--secondary-color);
+                    border: none;
+                }
+                
+                .form-actions .primary-btn:hover {
+                    background-color: var(--primary-dark);
+                    transform: translateY(-2px);
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                }
+                
+                .form-actions .secondary-btn {
+                    background-color: #f5f5f5;
+                    color: #333;
+                    border: 1px solid #ddd;
+                }
+                
+                .form-actions .secondary-btn:hover {
+                    background-color: #e5e5e5;
+                }
+                
+                .current-image {
+                    margin-top: 15px;
+                    padding: 15px;
+                    background-color: #f9f9f9;
+                    border-radius: 8px;
+                    display: inline-block;
+                }
+                
+                .current-image p {
+                    margin: 0 0 10px 0;
+                    font-weight: 500;
+                }
+                
+                .current-image img {
+                    border-radius: 6px;
+                    border: 2px solid #eee;
                 }
                 
                 @media (max-width: 768px) {
+                    .modal-body {
+                        padding: 20px;
+                    }
+                    
                     .form-actions {
                         flex-direction: column;
                     }
@@ -1508,6 +1692,71 @@ $totalInteractions = 27;
                 
                 .toast-info .toast-icon {
                     color: #17a2b8;
+                }
+
+                /* Radio options improved styling */
+                .radio-options-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                    margin-top: 10px;
+                }
+                
+                .radio-header {
+                    display: flex;
+                    align-items: flex-start;
+                    margin-bottom: 5px;
+                }
+                
+                .radio-header input[type="radio"] {
+                    margin-right: 10px;
+                    width: 18px;
+                    height: 18px;
+                    cursor: pointer;
+                }
+                
+                .radio-header label {
+                    font-weight: 500;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    transition: color 0.2s;
+                }
+                
+                .radio-option {
+                    margin-bottom: 0;
+                    padding: 18px;
+                    border-radius: 10px;
+                    background-color: #f9f9f9;
+                    transition: all 0.25s ease;
+                    border: 1px solid #eee;
+                    min-height: 100px;
+                    position: relative;
+                }
+                
+                .radio-option:hover {
+                    background-color: #f0f0f0;
+                    border-color: #ddd;
+                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+                    transform: translateY(-2px);
+                }
+                
+                .radio-option:has(input[type="radio"]:checked) {
+                    background-color: rgba(255, 229, 53, 0.1);
+                    border-color: var(--primary-color);
+                    box-shadow: 0 4px 12px rgba(255, 229, 53, 0.2);
+                }
+                
+                .radio-option input[type="radio"]:checked + label {
+                    color: var(--primary-dark);
+                    font-weight: 600;
+                }
+                
+                .radio-group .help-text {
+                    margin-top: 5px;
+                    margin-left: 28px;
+                    color: #6c757d;
+                    font-size: 0.85rem;
+                    line-height: 1.4;
                 }
             `;
             document.head.appendChild(modalStyles);

@@ -37,8 +37,6 @@
                 <li><a href="pages/colab.php" class="link" data-key="project">Project</a></li>
                 <li><a href="pages/innovation.php" class="link" data-key="innovation">Innovation</a></li>
                 <li><a href="pages/about.php" class="link" data-key="community">About Us</a></li>
-                <li><a href="pages/login.php" class="link" data-key="login">Login</a></li>
-                
             </ul>
             <div class="user-actions">
                 <button class="btn register" data-key="register"><a href="pages/register.php">Register</a></button>

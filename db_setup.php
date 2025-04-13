@@ -134,6 +134,84 @@ if (!file_exists($uploadsDir)) {
     echo "Uploads directory created successfully.<br>";
 }
 
+// Create uploads directory for innovation posts if it doesn't exist
+$innovationUploadsDir = 'uploads/innovation_posts';
+if (!file_exists($innovationUploadsDir)) {
+    mkdir($innovationUploadsDir, 0777, true);
+    echo "Innovation uploads directory created successfully.<br>";
+}
+
+// Create posts table for innovation page
+$sql = "CREATE TABLE IF NOT EXISTS innovation_posts (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(11) UNSIGNED NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    media_url VARCHAR(255) NULL,
+    media_type ENUM('image', 'video', 'document') NULL,
+    upvotes INT(11) UNSIGNED DEFAULT 0,
+    downvotes INT(11) UNSIGNED DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Innovation posts table created successfully or already exists.<br>";
+} else {
+    die("Error creating innovation posts table: " . $conn->error);
+}
+
+// Create comments table for innovation posts
+$sql = "CREATE TABLE IF NOT EXISTS post_comments (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    post_id INT(11) UNSIGNED NOT NULL,
+    user_id INT(11) UNSIGNED NOT NULL,
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES innovation_posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Post comments table created successfully or already exists.<br>";
+} else {
+    die("Error creating post comments table: " . $conn->error);
+}
+
+// Create post reactions table (for upvotes/downvotes/likes)
+$sql = "CREATE TABLE IF NOT EXISTS post_reactions (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    post_id INT(11) UNSIGNED NOT NULL,
+    user_id INT(11) UNSIGNED NOT NULL,
+    reaction_type ENUM('upvote', 'downvote', 'like') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_reaction (post_id, user_id, reaction_type),
+    FOREIGN KEY (post_id) REFERENCES innovation_posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Post reactions table created successfully or already exists.<br>";
+} else {
+    die("Error creating post reactions table: " . $conn->error);
+}
+
+// Create post tags table for categorizing posts
+$sql = "CREATE TABLE IF NOT EXISTS post_tags (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    post_id INT(11) UNSIGNED NOT NULL,
+    tag_name VARCHAR(50) NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES innovation_posts(id) ON DELETE CASCADE
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Post tags table created successfully or already exists.<br>";
+} else {
+    die("Error creating post tags table: " . $conn->error);
+}
+
 echo "<p>Database setup completed successfully!</p>";
 echo "<p>You can now <a href='pages/register.php'>register</a> a new user or <a href='pages/login.php'>login</a> if you already have an account.</p>";
 

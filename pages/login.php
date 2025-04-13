@@ -115,27 +115,6 @@
     }
     ?>
 
-    <!-- Header -->
-    <header>
-    <nav class="navbar flex">
-        <a href="../index.php" class="logo">
-            Colab<span>X</span>
-        </a>
-        <ul class="navlist flex">
-            <li><a href="../index.php" class="link">Home</a></li>
-            <li><a href="colab.php" class="link">Project</a></li>
-            <li><a href="innovation.php" class="link">Innovation</a></li>
-            <li><a href="about.php" class="link">About Us</a></li>
-            <li><a href="login.php" class="link">Login</a></li>
-        </ul>
-        <ul class="user-logo">
-            <li class="nav-icons flex">
-                <a href="#" class="icon"><i class="fa-solid fa-user"></i></a>
-            </li>
-        </ul>
-    </nav>
-</header>
-
     <!-- Preloader  -->
     <div class="preloader"> 
         <div class="loader">
