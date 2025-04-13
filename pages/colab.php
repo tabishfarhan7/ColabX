@@ -37,41 +37,36 @@
         <li><a href="colab.php" class="link" data-key="project">Project</a></li>
         <li><a href="innovation.php" class="link" data-key="innovation">Innovation</a></li>
         <li><a href="about.php" class="link" data-key="community">About Us</a></li>
-        <li><a href="login.php" class="link" data-key="login">Login</a></li>
     </ul>
     <div class="user-actions">
         <button class="btn register" data-key="register">Register</button>
         <button class="btn sign-in" data-key="signIn"><a href="login.php">Sign in</a></button>
+    
+        <!-- Language Selector -->
+        <div class="language-dropdown">
+            <button class="lang-btn">
+                <i class="fa-solid fa-globe"></i> EN
+            </button>
+            <ul class="language-list">
+                <li>English</li>
+                <li>አማርኛ</li>
+                <li>العربية</li>
+                <li>বাংলা</li>
+                <li>简体中文</li>
+                <li>Français</li>
+                <li>हिंदी</li>
+                <li>Bahasa Indonesia</li>
+                <li>Português</li>
+                <li>Español</li>
+                <li>Kiswahili</li>
+                <li>ไทย</li>
+                <li>اردو</li>
+                <li>Tiếng Việt</li>
+            </ul>
+        </div>
     </div>
 </nav>
-
-
-    
-                <!-- Language Selector -->
-                <div class="language-dropdown">
-                    <button class="lang-btn">
-                        <i class="fa-solid fa-globe"></i> EN
-                    </button>
-                    <ul class="language-list">
-                        <li>English</li>
-                        <li>አማርኛ</li>
-                        <li>العربية</li>
-                        <li>বাংলা</li>
-                        <li>简体中文</li>
-                        <li>Français</li>
-                        <li>हिंदी</li>
-                        <li>Bahasa Indonesia</li>
-                        <li>Português</li>
-                        <li>Español</li>
-                        <li>Kiswahili</li>
-                        <li>ไทย</li>
-                        <li>اردو</li>
-                        <li>Tiếng Việt</li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+</header>
 
 
     <section class="idea-upload">

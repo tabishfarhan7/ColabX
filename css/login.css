@@ -111,6 +111,112 @@ span{
 .user-logo{
     padding-right: 3rem;
 }
+
+/* Add user-actions and language dropdown styles */
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-right: 2rem;
+    padding-bottom: 0.55rem;
+    min-width: fit-content;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 0.7rem;
+    font-weight: 405;
+    text-transform: uppercase;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+}
+
+.register {
+    background-color: #FFE535;
+    color: #000;
+    font-weight: 1rem;
+    border: none;
+}
+
+.sign-in {
+    background-color: #f5f5f5;
+    color: var(--black-clr);
+    border: 1px solid #ddd;
+}
+
+.sign-in a{
+    color: var(--black-clr);
+}
+
+.register:hover {
+    background-color: #FFD700;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+
+.sign-in:hover {
+    background-color: #FFD700;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+
+.language-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding: 5px 10px;
+}
+
+.lang-btn i {
+    font-size: 1.2rem;
+}
+
+.language-list {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    list-style: none;
+    border-radius: 5px;
+    box-shadow: 0 5px 14.25px 0.75px rgba(36, 11, 12, 0.1);
+    padding: 10px;
+    min-width: 150px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+/* Show dropdown smoothly when active */
+.language-dropdown.active .language-list {
+    max-height: 300px;
+    opacity: 1;
+    overflow-y: auto;
+}
+
+.language-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.language-list li:hover {
+    background: #f5f5f5;
+}
+
 .content {
     position: relative;
     display: flex;
@@ -141,23 +247,33 @@ span{
 
 .login-box {
     background: rgba(159, 158, 158, 0.2); 
-padding: 40px;
-border-radius: 10px;
-text-align: center;
-width: 370px;
-box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-height: 400px;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
- backdrop-filter: blur(5px); 
-border: 1px solid rgba(255, 255, 255, 0.2); 
-margin-top: 1rem;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    width: 370px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    height: 430px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    backdrop-filter: blur(5px); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+}
+
+.login-box .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--black-clr);
+    text-align: center;
+    margin-bottom: 10px;
+    display: block;
+    padding-left: 0;
 }
 
 h2 {
     color: var(--black-clr);
+    margin-top: 5px;
 }
 
 p {
@@ -272,6 +388,22 @@ p {
     transform: scale(1.1);
 }
 
+.back-link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.back-link a {
+    color: #666;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.back-link a:hover {
+    color: var(--primary-clr);
+    text-decoration: underline;
+}
 
 /* Preloader Styles */
 .preloader {
