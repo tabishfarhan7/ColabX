@@ -351,6 +351,24 @@ if ($trending_tags_result && $trending_tags_result->num_rows > 0) {
         $trending_tags[] = $tag;
     }
 }
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Get user type with default value
+$user_type = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : 'normal';
+
+// Get user's full name
+$user_id = $_SESSION['user_id'];
+$stmt = $conn->prepare("SELECT full_name FROM users WHERE id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+$user_name = $user['full_name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -446,7 +464,7 @@ if ($trending_tags_result && $trending_tags_result->num_rows > 0) {
                 <li><a href="innovation.php" class="link active">Innovation</a></li>
                 <li><a href="about.php" class="link">About Us</a></li>
                 <?php if(isset($_SESSION['user_id'])): ?>
-                    <li><a href="dashboard/<?php echo $_SESSION['user_type'] === 'normal' ? 'user' : $_SESSION['user_type']; ?>_dashboard.php" class="link">Dashboard</a></li>
+                    <li><a href="<?php echo $user_type === 'normal' ? 'dashboard/user_dashboard.php' : 'dashboard/' . $user_type . '_dashboard.php'; ?>" class="link">Dashboard</a></li>
                 <?php endif; ?>
             </ul>
             <div class="user-actions">

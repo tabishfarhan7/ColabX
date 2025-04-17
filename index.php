@@ -39,8 +39,8 @@
                 <li><a href="pages/about.php" class="link" data-key="community">About Us</a></li>
             </ul>
             <div class="user-actions">
-                <button class="btn register" data-key="register">Register</button>
-<button class="btn sign-in" data-key="signIn"><a href="pages/login.php">Sign in</a></button>
+                <a href="pages/register.php" class="btn register" data-key="register">Register</a>
+                <a href="pages/login.php" class="btn sign-in" data-key="signIn">Sign in</a>
 
     
                 <!-- Language Selector -->
