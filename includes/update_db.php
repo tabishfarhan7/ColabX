@@ -46,5 +46,26 @@ if (!file_exists($uploadDir)) {
     }
 }
 
+// Create initiative_interests table if it doesn't exist
+$sql = "CREATE TABLE IF NOT EXISTS initiative_interests (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    initiative_id INT(11) UNSIGNED NOT NULL,
+    user_id INT(11) UNSIGNED NOT NULL,
+    idea_id INT(11) UNSIGNED NULL,
+    proposal TEXT NOT NULL,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NULL,
+    INDEX initiative_id_idx (initiative_id),
+    INDEX user_id_idx (user_id),
+    INDEX idea_id_idx (idea_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table 'initiative_interests' created successfully or already exists.<br>";
+} else {
+    echo "Error creating table 'initiative_interests': " . $conn->error . "<br>";
+}
+
 echo "<p>Database update completed. <a href='../index.php'>Return to home page</a></p>";
 ?> 

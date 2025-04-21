@@ -23,6 +23,48 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+        
+        /* Home link styles */
+        .home-link {
+            position: relative;
+            display: inline-block;
+            margin-top: 0;
+            padding: 6px 16px;
+            color: var(--black-clr);
+            font-size: 0.85rem;
+            text-decoration: none;
+            border-radius: 5px;
+            background: rgba(255, 229, 53, 0.7);
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .home-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .home-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-link:hover:before {
+            left: 100%;
+        }
+
+        .home-link i {
+            margin-right: 5px;
+        }
     </style>
 </head>
 
@@ -98,49 +140,6 @@
         </div>
     </div>
     
-    <!-- Header -->
-    <header>
-        <nav class="navbar flex">
-            <a href="../index.php" class="logo">
-                Colab<span>X</span>
-            </a>
-            <ul class="navlist flex">
-                <li><a href="../index.php" class="link" data-key="home">Home</a></li>
-                <li><a href="colab.php" class="link" data-key="project">Project</a></li>
-                <li><a href="innovation.php" class="link" data-key="innovation">Innovation</a></li>
-                <li><a href="about.php" class="link" data-key="community">About Us</a></li>
-                <li><a href="login.php" class="link" data-key="login">Login</a></li>
-            </ul>
-            <div class="user-actions">
-                <button class="btn register" data-key="register">Register</button>
-                <button class="btn sign-in" data-key="signIn"><a href="login.php">Sign in</a></button>
-
-                <!-- Language Selector -->
-                <div class="language-dropdown">
-                    <button class="lang-btn">
-                        <i class="fa-solid fa-globe"></i> EN
-                    </button>
-                    <ul class="language-list">
-                        <li>English</li>
-                        <li>አማርኛ</li>
-                        <li>العربية</li>
-                        <li>বাংলা</li>
-                        <li>简体中文</li>
-                        <li>Français</li>
-                        <li>हिंदी</li>
-                        <li>Bahasa Indonesia</li>
-                        <li>Português</li>
-                        <li>Español</li>
-                        <li>Kiswahili</li>
-                        <li>ไทย</li>
-                        <li>اردو</li>
-                        <li>Tiếng Việt</li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
     <div class="register-container">
         <div class="video-background">
             <video src="../videos/colab.mp4" loop autoplay muted playsinline></video>
@@ -205,6 +204,13 @@
                 <a href="#"><img src="../images/x (1).png" alt="X Login"></a>
                 <a href="#"><img src="../images/x (2).png" alt="Google Login"></a>
                 <a href="#"><img src="../images/x (3).png" alt="Apple Login"></a>
+            </div>
+            
+            <!-- Back to Homepage Link -->
+            <div style="text-align: center; margin-top: 10px;">
+                <a href="../index.php" class="home-link">
+                    <i class="fas fa-home"></i> Back to Homepage
+                </a>
             </div>
         </div>
     </div>

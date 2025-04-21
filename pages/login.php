@@ -23,6 +23,48 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+        
+        /* Home link styles */
+        .home-link {
+            position: relative;
+            display: inline-block;
+            margin-top: 0;
+            padding: 6px 16px;
+            color: var(--black-clr);
+            font-size: 0.85rem;
+            text-decoration: none;
+            border-radius: 5px;
+            background: rgba(255, 229, 53, 0.7);
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .home-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .home-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-link:hover:before {
+            left: 100%;
+        }
+
+        .home-link i {
+            margin-right: 5px;
+        }
     </style>
 </head>
 
@@ -62,8 +104,7 @@
                 
                 // Verify password
                 if (password_verify($password, $user['password'])) {
-                    // Password is correct, start a new session
-                    session_start();
+                    // Password is correct, store user data in session
                     
                     // Get user's full name
                     $nameStmt = $conn->prepare("SELECT full_name FROM users WHERE id = ?");
@@ -123,13 +164,14 @@
             <div class="loader-text">Colab<span>X</span></div>
         </div>
     </div>  
+    
     <!-- Home -->
      <div class="home">
         <div class="content">
             <div class="video">
                 <video src="../videos/colab.mp4" loop autoplay muted playsinline></video>
             </div>
-            <div class="login-box">
+            <div class="login-box" style="padding-bottom: 30px; min-height: 480px;">
                 <h2>Welcome Back</h2>
                 <p>Don't have an account yet? <a href="register.php" class="signup-link"> <button class="signup">&nbspSign up</button></a></p>
                 
@@ -164,7 +206,13 @@
                     <a href="#"><img src="../images/x (1).png" alt="X Login"></a>
                     <a href="#"><img src="../images/x (2).png" alt="Google Login"></a>
                     <a href="#"><img src="../images/x (3).png" alt="Apple Login"></a>
-                    
+                </div>
+                
+                <!-- Back to Homepage Link -->
+                <div style="text-align: center; margin-top: 10px; margin-bottom: 15px;">
+                    <a href="../index.php" class="home-link">
+                        <i class="fas fa-home"></i> Back to Homepage
+                    </a>
                 </div>
             </div>
         </div>
