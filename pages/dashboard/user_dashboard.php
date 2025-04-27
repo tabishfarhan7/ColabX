@@ -118,6 +118,703 @@ $totalInteractions = 27;
     <link rel="stylesheet" href="../../css/dashboard.css">
     <!-- Chart.js for data visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Custom Dashboard Styles */
+        :root {
+            --primary-color: #FFE535;
+            --primary-dark: #E5CC30;
+            --primary-light: #FFF4B7;
+            --secondary-color: #17a2b8;
+            --secondary-dark: #138496;
+            --secondary-light: #D1ECF1;
+            --white: #ffffff;
+            --black: #333333;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #6c757d;
+            --danger: #dc3545;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+        
+        /* Notification Modal Styles */
+        .notification-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-y: auto;
+            padding-top: 80px;
+        }
+        
+        .notification-modal.show {
+            display: flex;
+        }
+        
+        .notification-modal-content {
+            background-color: white;
+            width: 400px;
+            max-width: 95%;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .notification-modal-header {
+            padding: 15px 20px;
+            background-color: #FFE535;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .notification-modal-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        
+        .close-notification-modal {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+            transition: color 0.2s;
+        }
+        
+        .close-notification-modal:hover {
+            color: #666;
+        }
+        
+        .notification-modal-body {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .notification-item {
+            padding: 15px 20px;
+            display: flex;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s;
+            position: relative;
+        }
+        
+        .notification-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .notification-item.unread {
+            background-color: #f5f9ff;
+        }
+        
+        .notification-item.unread:hover {
+            background-color: #edf3fa;
+        }
+        
+        .notification-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #FFE535;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        
+        .notification-message {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+        
+        .notification-time {
+            font-size: 0.75rem;
+            color: #999;
+        }
+        
+        .notification-actions {
+            display: flex;
+            margin-left: 10px;
+        }
+        
+        .notification-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 3px 6px;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        
+        .notification-btn:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .notification-modal-footer {
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .mark-all-read {
+            background: none;
+            border: none;
+            color: #555;
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .mark-all-read:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Notification badge styles */
+        .notification-badge {
+            position: relative;
+            cursor: pointer;
+            margin-right: 15px;
+            font-size: 1.1rem;
+            color: #333;
+            --badge-display: block;
+        }
+        
+        .notification-badge::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #e74c3c;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 10px;
+            min-width: 10px;
+            text-align: center;
+            display: var(--badge-display);
+        }
+        
+        .notification-badge:hover {
+            color: #0066cc;
+        }
+        
+        body {
+            /* ... existing code ... */
+        }
+        
+        /* Fix for icon positioning in stat cards */
+        .icon-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 229, 53, 0.2);
+            margin-bottom: 15px;
+        }
+        
+        /* Chart styles updated to match entrepreneur dashboard */
+        .chart-container {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 1.8rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .chart-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #FFE535, #FFC107);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            color: #333;
+            margin: 0;
+            font-weight: 600;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .chart-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 20px;
+            background: #FFE535;
+            border-radius: 3px;
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 0.5rem;
+            background: #f5f5f5;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .chart-btn {
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .chart-btn:hover {
+            background-color: rgba(255, 229, 53, 0.2);
+        }
+
+        .chart-btn.active {
+            background-color: #FFE535;
+            color: #333;
+            box-shadow: 0 3px 8px rgba(255, 229, 53, 0.3);
+        }
+        
+        .chart-wrapper {
+            height: 400px;
+            max-height: 400px;
+            position: relative;
+            padding: 1rem 0;
+            width: 100%;
+            display: block;
+        }
+        
+        .chart-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .chart-tab {
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .chart-tab.active {
+            background-color: #FFE535;
+            color: #333;
+        }
+
+        .chart-tab i {
+            font-size: 1rem;
+        }
+        
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .stat-change.positive {
+            color: #28a745;
+        }
+        
+        .stat-change.negative {
+            color: #dc3545;
+        }
+        
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px 15px;
+        }
+        
+        .stat-card:nth-child(1) .icon-container {
+            background-color: rgba(255, 229, 53, 0.2);
+        }
+        .stat-card:nth-child(1) .icon-container i {
+            color: var(--primary-dark);
+        }
+        
+        .stat-card:nth-child(2) .icon-container {
+            background-color: rgba(23, 162, 184, 0.2);
+        }
+        .stat-card:nth-child(2) .icon-container i {
+            color: var(--info-color);
+        }
+        
+        .stat-card:nth-child(3) .icon-container {
+            background-color: rgba(40, 167, 69, 0.2);
+        }
+        .stat-card:nth-child(3) .icon-container i {
+            color: var(--success-color);
+        }
+        
+        .stat-card:nth-child(4) .icon-container {
+            background-color: rgba(255, 193, 7, 0.2);
+        }
+        .stat-card:nth-child(4) .icon-container i {
+            color: var(--warning-color);
+        }
+        
+        .stat-content {
+            width: 100%;
+        }
+        
+        /* Improved activity section */
+        .activity-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 12px 15px;
+            transition: var(--transition);
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .activity-item:hover {
+            background-color: #f0f0f0;
+            transform: translateX(5px);
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .activity-icon-like {
+            background-color: rgba(220, 53, 69, 0.15);
+            color: #dc3545;
+        }
+        
+        .activity-icon-comment {
+            background-color: rgba(23, 162, 184, 0.15);
+            color: #17a2b8;
+        }
+        
+        .activity-icon-view {
+            background-color: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+        }
+        
+        .activity-icon-save {
+            background-color: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+        
+        .activity-icon-login {
+            background-color: rgba(13, 110, 253, 0.15);
+            color: #0d6efd;
+        }
+        
+        .activity-icon-logout {
+            background-color: rgba(108, 117, 125, 0.15);
+            color: #6c757d;
+        }
+        
+        .activity-icon-password_change {
+            background-color: rgba(111, 66, 193, 0.15);
+            color: #6f42c1;
+        }
+        
+        .activity-icon-settings_update {
+            background-color: rgba(13, 202, 240, 0.15);
+            color: #0dcaf0;
+        }
+        
+        .activity-icon-profile_update {
+            background-color: rgba(25, 135, 84, 0.15);
+            color: #198754;
+        }
+        
+        .activity-icon-photo_update {
+            background-color: rgba(102, 16, 242, 0.15);
+            color: #6610f2;
+        }
+        
+        .activity-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        
+        .activity-time {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        
+        /* Improved tab-pane spacing */
+        .tab-pane .stats-container {
+            gap: 15px;
+        }
+        
+        .tab-pane .stat-card {
+            min-width: calc(33.333% - 15px);
+            padding: 15px;
+        }
+        
+        /* Card title and content improvements */
+        .tab-pane .stat-card h3 {
+            font-size: 1.1rem;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        
+        .tab-pane .stat-card p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        .card-actions {
+            margin-top: 15px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .tab-pane .stat-card {
+                min-width: 100%;
+            }
+            
+            .action-buttons {
+                gap: 10px;
+            }
+        }
+        
+        /* Dashboard section spacing */
+        .dashboard-section {
+            margin-top: 35px;
+            padding-top: 25px;
+        }
+        
+        /* Profile section improvements */
+        .profile-section {
+            gap: 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 30px;
+        }
+        
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .info-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .info-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        /* Empty state styling */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .empty-icon {
+            font-size: 3rem;
+            color: #d0d0d0;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state p {
+            color: #777;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .section-description {
+            color: #6c757d;
+            margin-top: -5px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .profile-actions .action-btn {
+                width: 100%;
+            }
+        }
+        
+        /* Action button spacing */
+        .action-buttons {
+            margin: 25px 0 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        /* Header date styling */
+        .header-date {
+            display: flex;
+            align-items: center;
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+        
+        .header-date i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        /* Profile avatar styling */
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            border: 3px solid var(--primary-color);
+            overflow: hidden;
+        }
+        
+        .profile-avatar i {
+            font-size: 3rem;
+            color: #aaa;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -134,7 +831,7 @@ $totalInteractions = 27;
                 <li><a href="user_dashboard.php" class="link">Dashboard</a></li>
             </ul>
             <div class="user-actions">
-                <div class="notification-badge" data-count="2">
+                <div class="notification-badge" data-count="2" id="notificationIcon">
                     <i class="fas fa-bell"></i>
                 </div>
                 <form action="../logout.php" method="POST">
@@ -178,13 +875,6 @@ $totalInteractions = 27;
         <div class="dashboard-content">
             <h2>User Dashboard</h2>
             <p>Explore innovations, discover government initiatives, and engage with the ColabX community.</p>
-            
-            <div class="action-buttons">
-                <button class="action-btn primary-btn" id="exploreIdeas"><i class="fas fa-lightbulb"></i> Explore Ideas</button>
-                <button class="action-btn secondary-btn" id="browseInitiatives"><i class="fas fa-building-columns"></i> Browse Initiatives</button>
-                <button class="action-btn secondary-btn"><i class="fas fa-calendar-alt"></i> Upcoming Events</button>
-                <button class="action-btn secondary-btn"><i class="fas fa-user-friends"></i> My Network</button>
-            </div>
             
             <div class="stats-container">
                 <div class="stat-card">
@@ -235,80 +925,62 @@ $totalInteractions = 27;
             <!-- Activity Chart -->
             <div class="chart-container">
                 <div class="chart-header">
-                    <h3 class="chart-title">Your Activity</h3>
+                    <h3 class="chart-title">Performance Overview</h3>
                     <div class="chart-actions">
                         <button class="chart-btn active" data-period="week">Week</button>
                         <button class="chart-btn" data-period="month">Month</button>
                         <button class="chart-btn" data-period="year">Year</button>
                     </div>
                 </div>
-                <div style="height: 250px; max-height: 250px; position: relative;">
-                    <canvas id="activityChart"></canvas>
-                </div>
-            </div>
-            
-            <!-- Content Tabs -->
-            <div class="dashboard-tabs">
-                <div class="tab-headers">
-                    <button class="tab-btn active" data-tab="ideas">Trending Ideas</button>
-                    <button class="tab-btn" data-tab="initiatives">Government Initiatives</button>
-                    <button class="tab-btn" data-tab="events">Upcoming Events</button>
+                
+                <div class="chart-tabs">
+                    <div class="chart-tab active"><i class="fas fa-chart-line"></i> Growth</div>
+                    <div class="chart-tab"><i class="fas fa-chart-bar"></i> Engagement</div>
+                    <div class="chart-tab"><i class="fas fa-chart-pie"></i> Distribution</div>
                 </div>
                 
-                <div class="tab-content">
-                    <!-- Trending Ideas Tab -->
-                    <div class="tab-pane active" id="ideas-tab">
-                        <div class="stats-container">
-                            <?php foreach ($recentIdeas as $idea): ?>
-                            <div class="stat-card hover-card">
-                                <h3><?php echo htmlspecialchars($idea['title']); ?></h3>
-                                <p><strong>By:</strong> <?php echo htmlspecialchars($idea['entrepreneur']); ?> (<?php echo htmlspecialchars($idea['company']); ?>)</p>
-                                <p><strong>Posted:</strong> <?php echo htmlspecialchars($idea['date']); ?></p>
-                                <div class="card-stats">
-                                    <span><i class="fas fa-heart"></i> <?php echo $idea['likes']; ?></span>
-                                    <span><i class="fas fa-comment"></i> <?php echo $idea['comments']; ?></span>
-                                </div>
-                                <div class="card-actions">
-                                    <button class="action-btn primary-btn"><i class="fas fa-eye"></i> View Details</button>
-                                </div>
+                <div class="chart-stats">
+                    <div class="stats-row" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <div class="stat-item">
+                            <div style="font-size: 0.85rem; color: #6c757d;">Ideas Viewed</div>
+                            <div style="font-size: 1.5rem; font-weight: 600; color: #333;"><?php echo $totalIdeasViewed; ?></div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 23% from last period
                             </div>
-                            <?php endforeach; ?>
+                        </div>
+                        <div class="stat-item">
+                            <div style="font-size: 0.85rem; color: #6c757d;">Initiatives Explored</div>
+                            <div style="font-size: 1.5rem; font-weight: 600; color: #333;"><?php echo $totalInitiativesExplored; ?></div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 12% from last period
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div style="font-size: 0.85rem; color: #6c757d;">Engagement Rate</div>
+                            <div style="font-size: 1.5rem; font-weight: 600; color: #333;">18.3%</div>
+                            <div class="stat-change negative">
+                                <i class="fas fa-arrow-down"></i> 3% from last period
+                            </div>
                         </div>
                     </div>
-                    
-                    <!-- Government Initiatives Tab -->
-                    <div class="tab-pane" id="initiatives-tab">
-                        <div class="stats-container">
-                            <?php foreach ($recentInitiatives as $initiative): ?>
-                            <div class="stat-card hover-card">
-                                <h3><?php echo htmlspecialchars($initiative['title']); ?></h3>
-                                <p><strong>Department:</strong> <?php echo htmlspecialchars($initiative['department']); ?></p>
-                                <p><strong>Organization:</strong> <?php echo htmlspecialchars($initiative['organization']); ?></p>
-                                <p><strong>Posted:</strong> <?php echo htmlspecialchars($initiative['date']); ?></p>
-                                <p><strong>Applications:</strong> <?php echo $initiative['applications']; ?></p>
-                                <div class="card-actions">
-                                    <button class="action-btn primary-btn"><i class="fas fa-info-circle"></i> More Info</button>
-                                </div>
-                            </div>
-                            <?php endforeach; ?>
-                        </div>
+                </div>
+                
+                <div class="chart-wrapper">
+                    <canvas id="activityChart"></canvas>
+                </div>
+                
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: rgba(255, 229, 53, 0.8);"></div>
+                        <div>Ideas Viewed</div>
                     </div>
-                    
-                    <!-- Upcoming Events Tab -->
-                    <div class="tab-pane" id="events-tab">
-                        <div class="stats-container">
-                            <?php foreach ($upcomingEvents as $event): ?>
-                            <div class="stat-card hover-card">
-                                <h3><?php echo htmlspecialchars($event['title']); ?></h3>
-                                <p><strong>Date:</strong> <?php echo htmlspecialchars($event['date']); ?></p>
-                                <p><strong>Location:</strong> <?php echo htmlspecialchars($event['location']); ?></p>
-                                <p><strong>Type:</strong> <?php echo htmlspecialchars($event['type']); ?></p>
-                                <div class="card-actions">
-                                    <button class="action-btn primary-btn"><i class="fas fa-calendar-plus"></i> Add to Calendar</button>
-                                </div>
-                            </div>
-                            <?php endforeach; ?>
-                        </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: rgba(23, 162, 184, 0.8);"></div>
+                        <div>Initiatives Explored</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: rgba(40, 167, 69, 0.8);"></div>
+                        <div>Interactions</div>
                     </div>
                 </div>
             </div>
@@ -591,6 +1263,70 @@ $totalInteractions = 27;
         </div>
     </div>
 
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="notification-modal">
+        <div class="notification-modal-content">
+            <div class="notification-modal-header">
+                <h3>Notifications</h3>
+                <span class="close-notification-modal">&times;</span>
+            </div>
+            <div class="notification-modal-body">
+                <div class="notification-item unread">
+                    <div class="notification-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">New Innovation</div>
+                        <div class="notification-message">A new Smart City solution has been posted by TechStart Innovations</div>
+                        <div class="notification-time">2 hours ago</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-btn mark-read" title="Mark as read"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+                
+                <div class="notification-item unread">
+                    <div class="notification-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Government Initiative</div>
+                        <div class="notification-message">Ministry of Technology has launched a Digital Transformation initiative</div>
+                        <div class="notification-time">1 day ago</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-btn mark-read" title="Mark as read"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Upcoming Event</div>
+                        <div class="notification-message">Innovation Summit 2023 is scheduled for next week. Register now!</div>
+                        <div class="notification-time">3 days ago</div>
+                    </div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Account created</div>
+                        <div class="notification-message">Welcome to ColabX! Your account has been successfully activated.</div>
+                        <div class="notification-time">7 days ago</div>
+                    </div>
+                </div>
+            </div>
+            <div class="notification-modal-footer">
+                <button class="mark-all-read">Mark all as read</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Language dropdown functionality
@@ -613,6 +1349,22 @@ $totalInteractions = 27;
             
             // Initialize activity chart
             const ctx = document.getElementById('activityChart').getContext('2d');
+            
+            // Create gradients for chart datasets
+            const ideasViewedGradient = ctx.createLinearGradient(0, 0, 0, 400);
+            ideasViewedGradient.addColorStop(0, 'rgba(255, 229, 53, 0.3)');
+            ideasViewedGradient.addColorStop(1, 'rgba(255, 229, 53, 0.02)');
+            
+            const initiativesGradient = ctx.createLinearGradient(0, 0, 0, 400);
+            initiativesGradient.addColorStop(0, 'rgba(23, 162, 184, 0.3)');
+            initiativesGradient.addColorStop(1, 'rgba(23, 162, 184, 0.02)');
+            
+            const interactionsGradient = ctx.createLinearGradient(0, 0, 0, 400);
+            interactionsGradient.addColorStop(0, 'rgba(40, 167, 69, 0.3)');
+            interactionsGradient.addColorStop(1, 'rgba(40, 167, 69, 0.02)');
+            
+            Chart.defaults.font.family = "'Poppins', 'Helvetica', 'Arial', sans-serif";
+            
             const activityChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -621,66 +1373,117 @@ $totalInteractions = 27;
                         {
                             label: 'Ideas Viewed',
                             data: [2, 3, 1, 5, 2, 0, 2],
-                            borderColor: '#FFE535',
-                            backgroundColor: 'rgba(255, 229, 53, 0.2)',
-                            borderWidth: 2,
+                            borderColor: 'rgba(255, 229, 53, 1)',
+                            backgroundColor: ideasViewedGradient,
+                            borderWidth: 3,
                             tension: 0.4,
-                            fill: true
+                            fill: true,
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: 'rgba(255, 229, 53, 1)',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
                         },
                         {
                             label: 'Initiatives Explored',
                             data: [1, 0, 2, 1, 3, 0, 1],
-                            borderColor: '#17a2b8',
-                            backgroundColor: 'rgba(23, 162, 184, 0.2)',
-                            borderWidth: 2,
+                            borderColor: 'rgba(23, 162, 184, 1)',
+                            backgroundColor: initiativesGradient,
+                            borderWidth: 3,
                             tension: 0.4,
-                            fill: true
+                            fill: true,
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: 'rgba(23, 162, 184, 1)',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
                         },
                         {
                             label: 'Interactions',
                             data: [5, 3, 6, 2, 4, 1, 6],
-                            borderColor: '#28a745',
-                            backgroundColor: 'rgba(40, 167, 69, 0.2)',
-                            borderWidth: 2,
+                            borderColor: 'rgba(40, 167, 69, 1)',
+                            backgroundColor: interactionsGradient,
+                            borderWidth: 3,
                             tension: 0.4,
-                            fill: true
+                            fill: true,
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: 'rgba(40, 167, 69, 1)',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
                         }
                     ]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
+                    maintainAspectRatio: false,
+                    fullSize: true,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
                     plugins: {
                         legend: {
+                            display: false,
                             position: 'top',
                             labels: {
                                 boxWidth: 10,
                                 font: {
                                     size: 10
-                                }
+                                },
+                                usePointStyle: true,
+                                pointStyle: 'circle'
                             }
                         },
                         tooltip: {
                             enabled: true,
                             mode: 'index',
-                            intersect: false
+                            intersect: false,
+                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                            titleColor: '#333',
+                            bodyColor: '#666',
+                            borderColor: '#ddd',
+                            borderWidth: 1,
+                            padding: 10,
+                            boxPadding: 5,
+                            cornerRadius: 8,
+                            titleFont: {
+                                weight: 'bold'
+                            }
                         }
                     },
                     scales: {
                         y: {
                             beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                drawBorder: false
+                            },
                             ticks: {
                                 font: {
                                     size: 10
-                                }
+                                },
+                                color: '#999',
+                                padding: 10
                             }
                         },
                         x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
                             ticks: {
                                 font: {
                                     size: 10
-                                }
+                                },
+                                color: '#999',
+                                padding: 10
                             }
+                        }
+                    },
+                    elements: {
+                        line: {
+                            tension: 0.4
                         }
                     }
                 }
@@ -721,108 +1524,34 @@ $totalInteractions = 27;
                 });
             });
             
-            // Handle tab switching
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabPanes = document.querySelectorAll('.tab-pane');
-            
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons and panes
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabPanes.forEach(pane => pane.classList.remove('active'));
-                    
-                    // Add active class to clicked button
+            // Handle chart tabs for switching between different chart views
+            document.querySelectorAll('.chart-tab').forEach((tab, index) => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
                     this.classList.add('active');
                     
-                    // Show corresponding pane
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                    // Show/hide datasets based on selected tab
+                    if (index === 0) { // Growth
+                        activityChart.data.datasets[0].hidden = false;
+                        activityChart.data.datasets[1].hidden = false;
+                        activityChart.data.datasets[2].hidden = true;
+                    } else if (index === 1) { // Engagement
+                        activityChart.data.datasets[0].hidden = false;
+                        activityChart.data.datasets[1].hidden = true;
+                        activityChart.data.datasets[2].hidden = false;
+                    } else if (index === 2) { // Distribution
+                        activityChart.data.datasets[0].hidden = true;
+                        activityChart.data.datasets[1].hidden = false;
+                        activityChart.data.datasets[2].hidden = false;
+                    }
+                    
+                    activityChart.update();
                 });
             });
             
-            // Add styles for tabs
-            const tabStyles = document.createElement('style');
-            tabStyles.innerHTML = `
-                .dashboard-tabs {
-                    margin-top: 30px;
-                }
-                
-                .tab-headers {
-                    display: flex;
-                    gap: 10px;
-                    margin-bottom: 20px;
-                    border-bottom: 1px solid #eee;
-                    padding-bottom: 10px;
-                }
-                
-                .tab-btn {
-                    padding: 10px 15px;
-                    background: none;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    font-weight: 500;
-                    color: #666;
-                    transition: all 0.3s ease;
-                }
-                
-                .tab-btn:hover {
-                    background-color: #f5f5f5;
-                    color: #333;
-                }
-                
-                .tab-btn.active {
-                    background-color: var(--primary-color);
-                    color: var(--secondary-color);
-                }
-                
-                .tab-content {
-                    position: relative;
-                }
-                
-                .tab-pane {
-                    display: none;
-                    animation: fadeIn 0.5s ease;
-                }
-                
-                .tab-pane.active {
-                    display: block;
-                }
-                
-                .card-stats {
-                    display: flex;
-                    gap: 15px;
-                    margin: 15px 0;
-                }
-                
-                .card-stats span {
-                    font-size: 0.9rem;
-                    color: #666;
-                }
-                
-                .card-stats span i {
-                    margin-right: 5px;
-                    color: var(--primary-color);
-                }
-                
-                .profile-actions {
-                    display: flex;
-                    gap: 10px;
-                    margin-top: 20px;
-                }
-            `;
-            document.head.appendChild(tabStyles);
-            
-            // Action buttons functionality
-            document.getElementById('exploreIdeas').addEventListener('click', function() {
-                document.querySelector('[data-tab="ideas"]').click();
-            });
-            
-            document.getElementById('browseInitiatives').addEventListener('click', function() {
-                document.querySelector('[data-tab="initiatives"]').click();
-            });
-            
-            // Add custom styles for improved layout
+            // Add custom styles for improved layout without tabs
             const customStyles = document.createElement('style');
             customStyles.innerHTML = `
                 /* Fix for icon positioning in stat cards */
@@ -835,6 +1564,142 @@ $totalInteractions = 27;
                     border-radius: 50%;
                     background-color: rgba(255, 229, 53, 0.2);
                     margin-bottom: 15px;
+                }
+                
+                /* Chart styles updated to match entrepreneur dashboard */
+                .chart-container {
+                    background-color: #fff;
+                    border-radius: 15px;
+                    padding: 1.8rem;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+                    margin-bottom: 2.5rem;
+                    transition: all 0.3s ease;
+                    border: 1px solid rgba(0, 0, 0, 0.03);
+                    position: relative;
+                    overflow: hidden;
+                    width: 100%;
+                }
+                
+                .chart-container::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 5px;
+                    background: linear-gradient(90deg, #FFE535, #FFC107);
+                }
+
+                .chart-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1.8rem;
+                    padding-bottom: 0.8rem;
+                    border-bottom: 1px solid #f0f0f0;
+                }
+
+                .chart-title {
+                    font-size: 1.2rem;
+                    color: #333;
+                    margin: 0;
+                    font-weight: 600;
+                    position: relative;
+                    padding-left: 15px;
+                }
+                
+                .chart-title::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 5px;
+                    height: 20px;
+                    background: #FFE535;
+                    border-radius: 3px;
+                }
+
+                .chart-actions {
+                    display: flex;
+                    gap: 0.5rem;
+                    background: #f5f5f5;
+                    padding: 5px;
+                    border-radius: 10px;
+                }
+
+                .chart-btn {
+                    padding: 0.5rem 1rem;
+                    background-color: transparent;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 0.85rem;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    font-weight: 500;
+                }
+
+                .chart-btn:hover {
+                    background-color: rgba(255, 229, 53, 0.2);
+                }
+
+                .chart-btn.active {
+                    background-color: #FFE535;
+                    color: #333;
+                    box-shadow: 0 3px 8px rgba(255, 229, 53, 0.3);
+                }
+                
+                .chart-wrapper {
+                    height: 400px;
+                    max-height: 400px;
+                    position: relative;
+                    padding: 1rem 0;
+                    width: 100%;
+                    display: block;
+                }
+                
+                .chart-tabs {
+                    display: flex;
+                    gap: 15px;
+                    margin-bottom: 20px;
+                }
+                
+                .chart-tab {
+                    padding: 10px 15px;
+                    background-color: #f8f9fa;
+                    border-radius: 10px;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    font-weight: 500;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+                
+                .chart-tab.active {
+                    background-color: #FFE535;
+                    color: #333;
+                }
+
+                .chart-tab i {
+                    font-size: 1rem;
+                }
+                
+                .stat-change {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    margin-top: 10px;
+                    font-size: 0.9rem;
+                }
+                
+                .stat-change.positive {
+                    color: #28a745;
+                }
+                
+                .stat-change.negative {
+                    color: #dc3545;
                 }
                 
                 .stat-card {
@@ -1239,12 +2104,10 @@ $totalInteractions = 27;
                         // Show success message
                         showToast('Profile Updated', data.message, 'success');
                         
-                        // Reload page if profile picture was updated
-                        if (data.reloadPage) {
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1500);
-                        }
+                        // Always reload page after successful profile update
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
                     } else {
                         showToast('Error', data.message, 'error');
                     }
@@ -1861,6 +2724,71 @@ $totalInteractions = 27;
                 // Update times every 10 seconds to keep them current
                 setInterval(updateActivityTimes, 10000);
             });
+
+            // Notification modal functionality
+            const notificationIcon = document.getElementById('notificationIcon');
+            const notificationModal = document.getElementById('notificationModal');
+            const closeNotificationBtn = document.querySelector('.close-notification-modal');
+            const markReadBtns = document.querySelectorAll('.mark-read');
+            const markAllReadBtn = document.querySelector('.mark-all-read');
+            
+            // Show modal when clicking notification icon
+            notificationIcon.addEventListener('click', function() {
+                notificationModal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+            });
+            
+            // Hide modal when clicking close button
+            closeNotificationBtn.addEventListener('click', function() {
+                notificationModal.classList.remove('show');
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+            
+            // Hide modal when clicking outside
+            notificationModal.addEventListener('click', function(e) {
+                if (e.target === notificationModal) {
+                    notificationModal.classList.remove('show');
+                    document.body.style.overflow = ''; // Restore scrolling
+                }
+            });
+            
+            // Handle mark as read for individual notifications
+            markReadBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const notificationItem = this.closest('.notification-item');
+                    notificationItem.classList.remove('unread');
+                    this.parentNode.remove(); // Remove the actions buttons
+                    
+                    // Update notification count
+                    updateNotificationCount();
+                });
+            });
+            
+            // Handle mark all as read
+            markAllReadBtn.addEventListener('click', function() {
+                const unreadItems = document.querySelectorAll('.notification-item.unread');
+                unreadItems.forEach(item => {
+                    item.classList.remove('unread');
+                    const actionBtn = item.querySelector('.notification-actions');
+                    if (actionBtn) actionBtn.remove();
+                });
+                
+                // Update notification count
+                updateNotificationCount();
+            });
+            
+            // Function to update notification count
+            function updateNotificationCount() {
+                const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+                notificationIcon.setAttribute('data-count', unreadCount);
+                
+                // Hide the badge if no unread notifications
+                if (unreadCount === 0) {
+                    notificationIcon.style.setProperty('--badge-display', 'none');
+                } else {
+                    notificationIcon.style.setProperty('--badge-display', 'block');
+                }
+            }
         });
     </script>
 </body>

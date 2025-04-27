@@ -76,7 +76,7 @@
             <p>We are dedicated to bridging the gap between <br>normal users, entrepreneurs, and government institutions <br>to create meaningful opportunities and benefits for all.</p>
             <div class="team-container">
                 <div class="team-member">
-                    <img src="../images/تابيش.jpeg" alt="Member 1">
+                    <img src="../images/Tabish.jpeg" alt="Member 1">
                     <h3>Tabish</h3>
                     <p>A seasoned professional with expertise in economic strategies and development.</p>
                     <div class="social-icons">
@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <div class="team-member">
-                    <img src="../images/Ghazi.jpg" alt="Member 3">
+                    <img src="../images/white.jpg" alt="Member 3">
                     <h3>Sahil</h3>
                     <p>Passionate about innovation and connecting businesses with the right resources.</p>
                     <div class="social-icons">
