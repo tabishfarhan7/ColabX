@@ -10,10 +10,34 @@ require_once '../includes/functions.php';
 $isLoggedIn = isset($_SESSION['user_id']);
 $userType = $isLoggedIn ? $_SESSION['user_type'] : '';
 
-// Get government initiatives data
-$govtInitiatives = [
+// Get government initiatives from database
+$dbInitiatives = [];
+$sql = "SELECT i.*, u.full_name, u.company_name, u.govt_id FROM initiatives i 
+        JOIN users u ON i.user_id = u.id 
+        WHERE i.status = 'active' 
+        ORDER BY i.created_at DESC";
+$result = $conn->query($sql);
+
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $dbInitiatives[] = [
+            'id' => $row['id'],
+            'title' => $row['title'],
+            'department' => $row['department'],
+            'organization' => $row['company_name'] ?: 'Ministry of ' . $row['department'],
+            'posted_date' => date('Y-m-d', strtotime($row['created_at'])),
+            'deadline' => $row['end_date'],
+            'match_score' => rand(65, 95), // You might implement a real matching algorithm
+            'description' => $row['description'],
+            'requirements' => $row['objectives']
+        ];
+    }
+}
+
+// Define the original mock data
+$mockInitiatives = [
     [
-        'id' => 1,
+        'id' => 1000, // Adding a large ID to avoid conflicts with real data
         'title' => 'Smart City Development Program',
         'department' => 'Urban Development',
         'organization' => 'Ministry of Urban Development',
@@ -24,7 +48,7 @@ $govtInitiatives = [
         'requirements' => 'Technology startups, software companies, IoT solution providers with proven track record.'
     ],
     [
-        'id' => 2,
+        'id' => 1001,
         'title' => 'Clean Energy Innovation Challenge',
         'department' => 'Energy',
         'organization' => 'Department of Energy',
@@ -35,7 +59,7 @@ $govtInitiatives = [
         'requirements' => 'Renewable energy companies, research institutions, and innovative startups with demonstrable experience in the energy sector.'
     ],
     [
-        'id' => 3,
+        'id' => 1002,
         'title' => 'Digital Governance Transformation',
         'department' => 'IT & Communication',
         'organization' => 'Ministry of Digital Affairs',
@@ -46,7 +70,7 @@ $govtInitiatives = [
         'requirements' => 'Software development companies, system integrators, and digital consultancies with experience in government technology projects.'
     ],
     [
-        'id' => 4,
+        'id' => 1003,
         'title' => 'Healthcare Innovation Program',
         'department' => 'Health',
         'organization' => 'Ministry of Health',
@@ -57,7 +81,7 @@ $govtInitiatives = [
         'requirements' => 'Healthcare technology companies, medical device manufacturers, and health informatics specialists.'
     ],
     [
-        'id' => 5,
+        'id' => 1004,
         'title' => 'Agricultural Modernization Initiative',
         'department' => 'Agriculture',
         'organization' => 'Department of Agriculture',
@@ -68,6 +92,9 @@ $govtInitiatives = [
         'requirements' => 'AgriTech companies, farm management solution providers, and agricultural consultants with proven innovations.'
     ]
 ];
+
+// Combine real database initiatives with mock initiatives
+$govtInitiatives = array_merge($dbInitiatives, $mockInitiatives);
 
 // Check if user is an entrepreneur to fetch expressed interests
 $userInterests = [];
@@ -1570,11 +1597,77 @@ if ($isLoggedIn && $userType === 'entrepreneur') {
                     if (this.classList.contains('liked')) {
                         this.innerHTML = '<i class="fas fa-thumbs-up"></i> Liked';
                         createToast('Liked', `You liked "${initiativeTitle}"`, 'success');
+                        
+                        // Send like to server
+                        const formData = new FormData();
+                        formData.append('initiative_id', initiativeId);
+                        formData.append('action', 'like');
+                        
+                        fetch('../actions/like_initiative.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.success) {
+                                // If server error, revert UI
+                                this.classList.remove('liked');
+                                this.innerHTML = '<i class="fas fa-thumbs-up"></i> Like';
+                                createToast('Error', data.message || 'Failed to save like', 'error');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            // Revert UI on network error
+                            this.classList.remove('liked');
+                            this.innerHTML = '<i class="fas fa-thumbs-up"></i> Like';
+                            createToast('Error', 'Network error occurred', 'error');
+                        });
                     } else {
                         this.innerHTML = '<i class="fas fa-thumbs-up"></i> Like';
                         createToast('Unliked', `You removed your like from "${initiativeTitle}"`, 'info');
+                        
+                        // Send unlike to server
+                        const formData = new FormData();
+                        formData.append('initiative_id', initiativeId);
+                        formData.append('action', 'unlike');
+                        
+                        fetch('../actions/like_initiative.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.success) {
+                                // If server error, revert UI
+                                this.classList.add('liked');
+                                this.innerHTML = '<i class="fas fa-thumbs-up"></i> Liked';
+                                createToast('Error', data.message || 'Failed to remove like', 'error');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            // Revert UI on network error
+                            this.classList.add('liked');
+                            this.innerHTML = '<i class="fas fa-thumbs-up"></i> Liked';
+                            createToast('Error', 'Network error occurred', 'error');
+                        });
                     }
                 });
+                
+                // Check if this initiative was previously liked
+                const initiativeId = button.dataset.id;
+                fetch(`../actions/check_initiative_like.php?initiative_id=${initiativeId}`, {
+                    method: 'GET'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.liked) {
+                        button.classList.add('liked');
+                        button.innerHTML = '<i class="fas fa-thumbs-up"></i> Liked';
+                    }
+                })
+                .catch(error => console.error('Error checking like status:', error));
             });
             <?php endif; ?>
             

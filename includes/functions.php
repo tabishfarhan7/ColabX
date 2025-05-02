@@ -1,4 +1,9 @@
 <?php
+// Start the session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Function to sanitize input data
 function sanitize_input($data) {
     $data = trim($data);
@@ -42,33 +47,24 @@ function is_logged_in() {
 
 // Function to get user data
 function get_user_data($conn, $user_id) {
-    // Try to get all fields (including new profile fields)
-    try {
-        $stmt = $conn->prepare("SELECT id, full_name, email, user_type, govt_id, company_name, business_type, 
-                              interests, bio, profile_pic, email_notifications, idea_updates, 
-                              initiative_alerts, event_reminders, privacy_level, created_at 
-                           FROM users WHERE id = ?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        }
-    } catch (mysqli_sql_exception $e) {
-        // If error happens (likely because new columns don't exist), fall back to basic fields
-        $stmt = $conn->prepare("SELECT id, full_name, email, user_type, govt_id, company_name, business_type
-                             FROM users WHERE id = ?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        }
-    }
+    $sql = "SELECT * FROM users WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
     
-    return null;
+    if ($result->num_rows > 0) {
+        return $result->fetch_assoc();
+    } else {
+        return [
+            'full_name' => 'Unknown User',
+            'email' => 'unknown@example.com',
+            'user_type' => 'normal',
+            'govt_id' => '',
+            'company_name' => '',
+            'business_type' => ''
+        ];
+    }
 }
 
 // Function to record user activity
@@ -261,4 +257,117 @@ function get_user_activities($conn, $user_id, $limit = 5) {
         return [];
     }
 }
+
+// Function to log user activities
+function log_activity($conn, $user_id, $activity_type, $description) {
+    $sql = "INSERT INTO user_activities (user_id, activity_type, description) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iss", $user_id, $activity_type, $description);
+    return $stmt->execute();
+}
+
+// Function to generate a password reset token and store it in the database
+function generatePasswordResetToken($email) {
+    global $conn;
+    
+    // Verify user exists
+    $sql = "SELECT id FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 0) {
+        return false; // User not found
+    }
+    
+    $user = $result->fetch_assoc();
+    $user_id = $user['id'];
+    
+    // Generate a random token
+    $token = bin2hex(random_bytes(32));
+    
+    // Set expiration time (24 hours from now)
+    $expires_at = date('Y-m-d H:i:s', strtotime('+24 hours'));
+    
+    // Delete any existing tokens for this user
+    $delete_sql = "DELETE FROM password_resets WHERE user_id = ?";
+    $delete_stmt = $conn->prepare($delete_sql);
+    $delete_stmt->bind_param("i", $user_id);
+    $delete_stmt->execute();
+    
+    // Store the new token
+    $insert_sql = "INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)";
+    $insert_stmt = $conn->prepare($insert_sql);
+    $insert_stmt->bind_param("iss", $user_id, $token, $expires_at);
+    
+    if ($insert_stmt->execute()) {
+        return $token;
+    } else {
+        return false;
+    }
+}
+
+// Function to verify if a password reset token is valid
+function verifyPasswordResetToken($token) {
+    global $conn;
+    
+    // Check if token exists and is not expired or used
+    $sql = "SELECT pr.id, pr.user_id, u.email 
+            FROM password_resets pr
+            JOIN users u ON pr.user_id = u.id
+            WHERE pr.token = ? 
+            AND pr.expires_at > NOW() 
+            AND pr.used = 0";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 0) {
+        return false; // Token invalid, expired, or already used
+    }
+    
+    return $result->fetch_assoc();
+}
+
+// Function to update password and mark token as used
+function resetPassword($token, $new_password) {
+    global $conn;
+    
+    // Verify token is valid
+    $token_data = verifyPasswordResetToken($token);
+    if (!$token_data) {
+        return false;
+    }
+    
+    // Begin transaction
+    $conn->begin_transaction();
+    
+    try {
+        // Update user password
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        $update_user_sql = "UPDATE users SET password = ? WHERE id = ?";
+        $update_user_stmt = $conn->prepare($update_user_sql);
+        $update_user_stmt->bind_param("si", $hashed_password, $token_data['user_id']);
+        $update_user_stmt->execute();
+        
+        // Mark token as used
+        $update_token_sql = "UPDATE password_resets SET used = 1 WHERE token = ?";
+        $update_token_stmt = $conn->prepare($update_token_sql);
+        $update_token_stmt->bind_param("s", $token);
+        $update_token_stmt->execute();
+        
+        // Commit transaction
+        $conn->commit();
+        return true;
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        $conn->rollback();
+        return false;
+    }
+}
+
+// Other utility functions can be added here
 ?> 

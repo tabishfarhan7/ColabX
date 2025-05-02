@@ -65,6 +65,24 @@
         .home-link i {
             margin-right: 5px;
         }
+        
+        /* Forgot password link */
+        .forgot-password {
+            text-align: right;
+            margin: -5px 0 15px;
+        }
+        
+        .forgot-password a {
+            color: #666;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .forgot-password a:hover {
+            color: #FFE535;
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -192,6 +210,10 @@
                     <div class="input-box">
                         <img src="../images/unlock.png" alt="Password Icon" class="icon">
                         <input type="password" name="password" placeholder="Password" required>
+                    </div>
+                    
+                    <div class="forgot-password">
+                        <a href="forgot_password.php">Forgot Password?</a>
                     </div>
         
                     <button type="submit" class="login-btn">Login</button>

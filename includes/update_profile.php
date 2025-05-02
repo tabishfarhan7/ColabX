@@ -13,7 +13,7 @@ $response = array(
     'success' => false,
     'message' => '',
     'updatedName' => '',
-    'reloadPage' => false
+    'reloadPage' => true  // Set to true by default
 );
 
 // Check if user is logged in

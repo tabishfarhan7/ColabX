@@ -101,6 +101,51 @@ $govtInitiatives = [
         'match_score' => 68,
         'description' => 'We are seeking innovative solutions to modernize agricultural practices, including precision farming, crop monitoring, supply chain optimization, and sustainable farming technologies.',
         'requirements' => 'AgriTech companies, farm management solution providers, and agricultural consultants with proven innovations.'
+    ],
+    // Adding colab.php initiatives
+    [
+        'id' => 1001,
+        'title' => 'Smart City Development Program',
+        'department' => 'Urban Development',
+        'organization' => 'Ministry of Urban Development',
+        'posted_date' => '2023-10-10',
+        'deadline' => '2027-12-31',
+        'match_score' => 92,
+        'description' => 'We are looking for innovative solutions to transform urban areas into smart cities with integrated technology for better resource management, improved quality of life, and sustainable development. Projects may include IoT sensors, data analytics, energy efficiency, or smart transportation systems.',
+        'requirements' => 'Technology startups, software companies, IoT solution providers with proven track record.'
+    ],
+    [
+        'id' => 1002,
+        'title' => 'Digital Governance Transformation',
+        'department' => 'IT & Communication',
+        'organization' => 'Ministry of Digital Affairs',
+        'posted_date' => '2023-11-12',
+        'deadline' => '2027-02-28',
+        'match_score' => 78,
+        'description' => 'We are seeking digital solutions to simplify government services and improve citizen engagement. Proposed solutions should focus on e-governance, citizen services applications, or process automation systems.',
+        'requirements' => 'Software development companies, system integrators, and digital consultancies with experience in government technology projects.'
+    ],
+    [
+        'id' => 1003,
+        'title' => 'Healthcare Innovation Program',
+        'department' => 'Health',
+        'organization' => 'Ministry of Health',
+        'posted_date' => '2023-11-20',
+        'deadline' => '2027-03-15',
+        'match_score' => 73,
+        'description' => 'This program focuses on technological innovations in healthcare delivery, telemedicine, health information systems, and medical devices. We are looking for solutions that can improve healthcare access and quality.',
+        'requirements' => 'Healthcare technology companies, medical device manufacturers, and health informatics specialists.'
+    ],
+    [
+        'id' => 1004,
+        'title' => 'Agricultural Modernization Initiative',
+        'department' => 'Agriculture',
+        'organization' => 'Department of Agriculture',
+        'posted_date' => '2023-11-25',
+        'deadline' => '2027-02-28',
+        'match_score' => 68,
+        'description' => 'We are seeking innovative solutions to modernize agricultural practices, including precision farming, crop monitoring, supply chain optimization, and sustainable farming technologies.',
+        'requirements' => 'AgriTech companies, farm management solution providers, and agricultural consultants with proven innovations.'
     ]
 ];
 
@@ -155,7 +200,12 @@ foreach ($userIdeas as $idea) {
 }
 
 // Get user's expressed interests
-$userInterestsQuery = "SELECT initiative_id, proposal, idea_id, created_at FROM initiative_interests WHERE user_id = ?";
+$userInterestsQuery = "SELECT ii.*, i.title as initiative_title, i.department, gi.title as idea_title 
+                      FROM initiative_interests ii 
+                      LEFT JOIN initiatives i ON ii.initiative_id = i.id 
+                      LEFT JOIN ideas gi ON ii.idea_id = gi.id 
+                      WHERE ii.user_id = ?
+                      ORDER BY ii.created_at DESC";
 $userInterestsStmt = $conn->prepare($userInterestsQuery);
 $userInterestsStmt->bind_param("i", $_SESSION['user_id']);
 $userInterestsStmt->execute();
@@ -171,7 +221,9 @@ foreach ($userInterests as $interest) {
     $formattedInterests[$interest['initiative_id']] = [
         'timestamp' => $interest['created_at'],
         'proposal' => $interest['proposal'],
-        'ideaId' => $interest['idea_id']
+        'ideaId' => $interest['idea_id'],
+        'title' => $interest['initiative_title'] ?? '',
+        'department' => $interest['department'] ?? ''
     ];
 }
 ?>
@@ -208,23 +260,6 @@ foreach ($userInterests as $interest) {
             font-size: 1.5rem;
             color: #333;
             font-weight: 500;
-        }
-
-        .logout-btn {
-            padding: 8px 15px;
-            background-color: #f5f5f5;
-            color: #333;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background-color: #e0e0e0;
         }
 
         /* Dashboard Content */
@@ -603,6 +638,11 @@ foreach ($userInterests as $interest) {
         .status-badge.rejected {
             background-color: #f8d7da;
             color: #721c24;
+        }
+
+        .status-shortlisted {
+            background-color: #cce5ff;
+            color: #004085;
         }
 
         /* Action Links */
@@ -1641,6 +1681,208 @@ foreach ($userInterests as $interest) {
             color: white;
             border-color: #6f42c1;
         }
+        
+        .dataTables_wrapper .dt-buttons .dt-button {
+            font-size: 0.9rem;
+            margin-right: 5px;
+        }
+        
+        /* Notification Modal Styles */
+        .notification-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-y: auto;
+            padding-top: 80px;
+        }
+        
+        .notification-modal.show {
+            display: flex;
+        }
+        
+        .notification-modal-content {
+            background-color: white;
+            width: 400px;
+            max-width: 95%;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .notification-modal-header {
+            padding: 15px 20px;
+            background-color: #FFE535;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .notification-modal-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        
+        .close-notification-modal {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+            transition: color 0.2s;
+        }
+        
+        .close-notification-modal:hover {
+            color: #666;
+        }
+        
+        .notification-modal-body {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .notification-item {
+            padding: 15px 20px;
+            display: flex;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s;
+            position: relative;
+        }
+        
+        .notification-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .notification-item.unread {
+            background-color: #f5f9ff;
+        }
+        
+        .notification-item.unread:hover {
+            background-color: #edf3fa;
+        }
+        
+        .notification-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #FFE535;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        
+        .notification-message {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+        
+        .notification-time {
+            font-size: 0.75rem;
+            color: #999;
+        }
+        
+        .notification-actions {
+            display: flex;
+            margin-left: 10px;
+        }
+        
+        .notification-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 3px 6px;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        
+        .notification-btn:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .notification-modal-footer {
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .mark-all-read {
+            background: none;
+            border: none;
+            color: #555;
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .mark-all-read:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Notification badge styles */
+        .notification-badge {
+            position: relative;
+            cursor: pointer;
+            margin-right: 15px;
+            font-size: 1.1rem;
+            color: #333;
+            --badge-display: block;
+        }
+        
+        .notification-badge::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #e74c3c;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 10px;
+            min-width: 10px;
+            text-align: center;
+            display: var(--badge-display);
+        }
+        
+        .notification-badge:hover {
+            color: #0066cc;
+        }
     </style>
 </head>
 <body>
@@ -1658,7 +1900,7 @@ foreach ($userInterests as $interest) {
                 <li><a href="entrepreneur_dashboard.php" class="link">Dashboard</a></li>
             </ul>
             <div class="user-actions">
-                <div class="notification-badge" data-count="3">
+                <div class="notification-badge" data-count="3" id="notificationIcon">
                     <i class="fas fa-bell"></i>
                 </div>
                 <form action="../logout.php" method="POST">
@@ -1694,9 +1936,6 @@ foreach ($userInterests as $interest) {
     <div class="dashboard-container">
         <div class="dashboard-header">
             <h1 class="welcome-message">Welcome, <?php echo htmlspecialchars($userData['full_name']); ?>!</h1>
-            <form action="../logout.php" method="POST">
-                <button type="submit" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
-            </form>
         </div>
         
         <!-- Display success/error messages if they exist -->
@@ -1725,6 +1964,7 @@ foreach ($userInterests as $interest) {
             <div class="action-buttons">
                 <a href="../idea_form.php"><button class="action-btn primary-btn"><i class="fas fa-lightbulb"></i> Submit New Idea</button></a>
                 <button class="action-btn secondary-btn" id="browseInitiatives"><i class="fas fa-building-columns"></i> Browse Government Initiatives</button>
+                <button class="action-btn secondary-btn" id="viewInterests"><i class="fas fa-handshake"></i> View Interests</button>
             </div>
             
             <div class="stats-container">
@@ -1861,6 +2101,94 @@ foreach ($userInterests as $interest) {
                                 <a href="../view_idea.php?id=<?php echo $idea['id']; ?>" class="view-link"><i class="fas fa-eye"></i> View</a>
                                 <a href="../idea_form.php?id=<?php echo $idea['id']; ?>" class="edit-link"><i class="fas fa-edit"></i> Edit</a>
                                 <a href="#" class="delete-link" data-id="<?php echo $idea['id']; ?>"><i class="fas fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php endif; ?>
+            </div>
+            
+            <!-- Your Interests Section -->
+            <div class="dashboard-section" id="interestsSection" style="display: none;">
+                <h3>Your Expressed Interests</h3>
+                <div class="section-description">Review the government initiatives you've applied to and their current status</div>
+                
+                <?php if (empty($userInterests)): ?>
+                    <div class="empty-state">
+                        <i class="fas fa-handshake empty-icon"></i>
+                        <h4>No Interests Yet</h4>
+                        <p>You haven't expressed interest in any government initiatives yet. Browse the initiatives and apply with your innovative ideas.</p>
+                        <button class="action-btn primary-btn" id="browseInitiativesEmpty"><i class="fas fa-building-columns"></i> Browse Government Initiatives</button>
+                    </div>
+                <?php else: ?>
+                <table class="dashboard-table interests-table">
+                    <thead>
+                        <tr>
+                            <th>Initiative</th>
+                            <th>Department</th>
+                            <th>Applied Date</th>
+                            <th>Associated Idea</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($userInterests as $interest): 
+                            // Find the initiative details from the mock data since db join might not have worked
+                            $initiativeTitle = !empty($interest['initiative_title']) ? $interest['initiative_title'] : null;
+                            $initiativeDept = !empty($interest['department']) ? $interest['department'] : null;
+                            
+                            if (!$initiativeTitle || !$initiativeDept) {
+                                foreach ($govtInitiatives as $initiative) {
+                                    if ($initiative['id'] == $interest['initiative_id']) {
+                                        $initiativeTitle = $initiative['title'];
+                                        $initiativeDept = $initiative['department'];
+                                        break;
+                                    }
+                                }
+                            }
+                        ?>
+                        <tr>
+                            <td><?php echo $initiativeTitle ? htmlspecialchars($initiativeTitle) : htmlspecialchars('Initiative #' . $interest['initiative_id']); ?></td>
+                            <td><?php echo $initiativeDept ? htmlspecialchars($initiativeDept) : 'N/A'; ?></td>
+                            <td><?php echo date('Y-m-d', strtotime($interest['created_at'])); ?></td>
+                            <td><?php echo !empty($interest['idea_title']) ? htmlspecialchars($interest['idea_title']) : 'N/A'; ?></td>
+                            <td>
+                                <?php 
+                                // Generate random status for demo purposes
+                                $statusOptions = ['Under Review', 'Shortlisted', 'Interview Scheduled', 'Accepted', 'Rejected'];
+                                $randomStatus = $statusOptions[array_rand($statusOptions)];
+                                $statusClass = '';
+                                switch($randomStatus) {
+                                    case 'Under Review':
+                                        $statusClass = 'status-pending';
+                                        break;
+                                    case 'Shortlisted':
+                                    case 'Interview Scheduled':
+                                        $statusClass = 'status-shortlisted';
+                                        break;
+                                    case 'Accepted':
+                                        $statusClass = 'status-approved';
+                                        break;
+                                    case 'Rejected':
+                                        $statusClass = 'status-rejected';
+                                        break;
+                                    default:
+                                        $statusClass = '';
+                                }
+                                ?>
+                                <span class="status-pill <?php echo $statusClass; ?>"><?php echo $randomStatus; ?></span>
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    <a href="javascript:void(0);" onclick="viewInterestDetails(<?php echo $interest['initiative_id']; ?>)" class="action-link view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" onclick="withdrawInterest(<?php echo $interest['initiative_id']; ?>)" class="action-link delete" title="Withdraw Interest">
+                                        <i class="fas fa-times-circle"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -2258,7 +2586,80 @@ foreach ($userInterests as $interest) {
         </div>
     </div>
 
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="notification-modal">
+        <div class="notification-modal-content">
+            <div class="notification-modal-header">
+                <h3>Notifications</h3>
+                <span class="close-notification-modal">&times;</span>
+            </div>
+            <div class="notification-modal-body">
+                <div class="notification-item unread">
+                    <div class="notification-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Idea approved</div>
+                        <div class="notification-message">Your "Smart Urban Waste Management" idea has been approved by the Ministry of Innovation</div>
+                        <div class="notification-time">3 hours ago</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-btn mark-read" title="Mark as read"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+                
+                <div class="notification-item unread">
+                    <div class="notification-icon">
+                        <i class="fas fa-comment"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">New comment received</div>
+                        <div class="notification-message">A government official has left feedback on your Renewable Energy Hub idea</div>
+                        <div class="notification-time">1 day ago</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-btn mark-read" title="Mark as read"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+                
+                <div class="notification-item unread">
+                    <div class="notification-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">New initiative available</div>
+                        <div class="notification-message">The Ministry of Technology has posted a new "Digital Transformation" initiative that matches your expertise</div>
+                        <div class="notification-time">2 days ago</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-btn mark-read" title="Mark as read"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Account created</div>
+                        <div class="notification-message">Welcome to ColabX! Your entrepreneur account has been successfully activated.</div>
+                        <div class="notification-time">7 days ago</div>
+                    </div>
+                </div>
+            </div>
+            <div class="notification-modal-footer">
+                <button class="mark-all-read">Mark all as read</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        <?php
+        // Pass PHP data to JavaScript
+        echo "const userInterests = " . json_encode($formattedInterests) . ";\n";
+        echo "const initiatives = " . json_encode($govtInitiatives) . ";\n";
+        echo "const userIdeas = " . json_encode($userIdeas) . ";\n";
+        ?>
         // Language dropdown functionality
         document.addEventListener("DOMContentLoaded", function() {
             const langDropdown = document.querySelector(".language-dropdown");
@@ -3136,6 +3537,465 @@ foreach ($userInterests as $interest) {
                 emptyState.remove();
             }
         }
+
+        // Notification modal functionality
+        const notificationIcon = document.getElementById('notificationIcon');
+        const notificationModal = document.getElementById('notificationModal');
+        const closeNotificationBtn = document.querySelector('.close-notification-modal');
+        const markReadBtns = document.querySelectorAll('.mark-read');
+        const markAllReadBtn = document.querySelector('.mark-all-read');
+
+        // Show modal when clicking notification icon
+        notificationIcon.addEventListener('click', function() {
+            notificationModal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+        });
+
+        // Hide modal when clicking close button
+        closeNotificationBtn.addEventListener('click', function() {
+            notificationModal.classList.remove('show');
+            document.body.style.overflow = ''; // Restore scrolling
+        });
+
+        // Hide modal when clicking outside
+        notificationModal.addEventListener('click', function(e) {
+            if (e.target === notificationModal) {
+                notificationModal.classList.remove('show');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        });
+
+        // Handle mark as read for individual notifications
+        markReadBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const notificationItem = this.closest('.notification-item');
+                notificationItem.classList.remove('unread');
+                this.parentNode.remove(); // Remove the actions buttons
+                
+                // Update notification count
+                updateNotificationCount();
+            });
+        });
+
+        // Handle mark all as read
+        markAllReadBtn.addEventListener('click', function() {
+            const unreadItems = document.querySelectorAll('.notification-item.unread');
+            unreadItems.forEach(item => {
+                item.classList.remove('unread');
+                const actionBtn = item.querySelector('.notification-actions');
+                if (actionBtn) actionBtn.remove();
+            });
+            
+            // Update notification count
+            updateNotificationCount();
+        });
+
+        // Function to update notification count
+        function updateNotificationCount() {
+            const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+            notificationIcon.setAttribute('data-count', unreadCount);
+            
+            // Hide the badge if no unread notifications
+            if (unreadCount === 0) {
+                notificationIcon.style.setProperty('--badge-display', 'none');
+            } else {
+                notificationIcon.style.setProperty('--badge-display', 'block');
+            }
+        }
+
+        // Handle notification count
+        updateNotificationCount();
+        
+        // View Interests button functionality
+        const viewInterestsBtn = document.getElementById('viewInterests');
+        if (viewInterestsBtn) {
+            viewInterestsBtn.addEventListener('click', function() {
+                // Hide other sections
+                const ideasSection = document.querySelector('.dashboard-section');
+                const initiativesSection = document.getElementById('initiativesSection');
+                const interestsSection = document.getElementById('interestsSection');
+                
+                ideasSection.style.display = 'none';
+                if (initiativesSection) initiativesSection.style.display = 'none';
+                interestsSection.style.display = 'block';
+                
+                // Scroll to interests section
+                interestsSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        
+        // Browse Initiatives from empty interests state
+        const browseInitiativesEmptyBtn = document.getElementById('browseInitiativesEmpty');
+        if (browseInitiativesEmptyBtn) {
+            browseInitiativesEmptyBtn.addEventListener('click', function() {
+                document.getElementById('browseInitiatives').click();
+            });
+        }
+        
+        // Interest Details Modal
+        window.viewInterestDetails = function(initiativeId) {
+            console.log("Viewing interest details for initiative ID:", initiativeId);
+            
+            // Find initiative from the initiatives array
+            const initiative = initiatives.find(i => parseInt(i.id) === parseInt(initiativeId));
+            console.log("Found initiative:", initiative);
+            
+            // Find the interest data
+            const interest = userInterests[initiativeId];
+            if (!interest) {
+                console.error('Interest not found for initiative ID: ' + initiativeId);
+                return;
+            }
+            console.log("Found interest data:", interest);
+            
+            // Find associated idea
+            let idea = null;
+            if (interest.ideaId) {
+                idea = userIdeas.find(i => parseInt(i.id) === parseInt(interest.ideaId));
+                console.log("Found associated idea:", idea);
+            }
+            
+            // Get initiative details either from the initiatives array or from the interest data
+            const initiativeTitle = initiative ? initiative.title : (interest.title || 'Initiative #' + initiativeId);
+            const department = initiative ? initiative.department : (interest.department || 'Not specified');
+            const organization = initiative ? initiative.organization : '';
+            const description = initiative ? initiative.description : 'Details for this initiative are not available.';
+            
+            // Create modal content
+            let modalHtml = `
+                <div class="modal-header">
+                    <h3>Interest Details</h3>
+                    <button class="modal-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="interest-details">
+                        <h4>${initiativeTitle}</h4>
+                        <p class="interest-meta">Department: ${department} ${organization ? '| Organization: ' + organization : ''}</p>
+                        
+                        <div class="interest-section">
+                            <h5>Initiative Description</h5>
+                            <p>${description}</p>
+                        </div>
+                        
+                        <div class="interest-section">
+                            <h5>Your Proposal</h5>
+                            <p>${interest.proposal || 'No proposal provided.'}</p>
+                        </div>
+                        
+                        <div class="interest-section">
+                            <h5>Connected Idea</h5>
+                            <p>${idea ? idea.title : 'No idea associated with this interest.'}</p>
+                        </div>
+                        
+                        <div class="interest-section">
+                            <h5>Application Status</h5>
+                            <div class="status-tracker">
+                                <div class="status-step completed">
+                                    <div class="status-icon"><i class="fas fa-check"></i></div>
+                                    <div class="status-label">Applied</div>
+                                </div>
+                                <div class="status-connector"></div>
+                                <div class="status-step completed">
+                                    <div class="status-icon"><i class="fas fa-check"></i></div>
+                                    <div class="status-label">Under Review</div>
+                                </div>
+                                <div class="status-connector"></div>
+                                <div class="status-step active">
+                                    <div class="status-icon"><i class="fas fa-sync"></i></div>
+                                    <div class="status-label">Shortlisted</div>
+                                </div>
+                                <div class="status-connector"></div>
+                                <div class="status-step">
+                                    <div class="status-icon"><i class="fas fa-hourglass-half"></i></div>
+                                    <div class="status-label">Final Decision</div>
+                                </div>
+                            </div>
+                            <p class="status-message">Your application is currently being evaluated. The review committee will contact you for further information if needed.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="action-btn secondary-btn modal-close-btn">Close</button>
+                    <button class="action-btn danger-btn" onclick="withdrawInterest(${initiativeId})">Withdraw Application</button>
+                </div>
+            `;
+            
+            // Create and show modal
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.id = 'interestDetailsModal';
+            
+            const modalContent = document.createElement('div');
+            modalContent.className = 'modal-content';
+            modalContent.innerHTML = modalHtml;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Add event listeners
+            setTimeout(() => {
+                modal.classList.add('active');
+                document.body.classList.add('modal-open');
+                
+                // Close modal functionality
+                const closeButtons = modal.querySelectorAll('.modal-close, .modal-close-btn');
+                closeButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        modal.classList.remove('active');
+                        document.body.classList.remove('modal-open');
+                        setTimeout(() => modal.remove(), 300);
+                    });
+                });
+                
+                // Close on click outside
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                        document.body.classList.remove('modal-open');
+                        setTimeout(() => modal.remove(), 300);
+                    }
+                });
+            }, 50);
+        };
+        
+        // Withdraw Interest
+        window.withdrawInterest = function(initiativeId) {
+            // Close any open modal first
+            const openModal = document.querySelector('.modal.active');
+            if (openModal) {
+                openModal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                setTimeout(() => openModal.remove(), 300);
+            }
+            
+            // Create confirmation modal
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.id = 'withdrawConfirmationModal';
+            
+            const modalContent = document.createElement('div');
+            modalContent.className = 'modal-content';
+            modalContent.innerHTML = `
+                <div class="modal-header">
+                    <h3>Withdraw Interest</h3>
+                    <button class="modal-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to withdraw your interest in this initiative? This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="action-btn secondary-btn modal-close-btn">Cancel</button>
+                    <button class="action-btn danger-btn" id="confirmWithdraw">Withdraw</button>
+                </div>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Add event listeners
+            setTimeout(() => {
+                modal.classList.add('active');
+                document.body.classList.add('modal-open');
+                
+                // Close modal functionality
+                const closeButtons = modal.querySelectorAll('.modal-close, .modal-close-btn');
+                closeButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        modal.classList.remove('active');
+                        document.body.classList.remove('modal-open');
+                        setTimeout(() => modal.remove(), 300);
+                    });
+                });
+                
+                // Close on click outside
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                        document.body.classList.remove('modal-open');
+                        setTimeout(() => modal.remove(), 300);
+                    }
+                });
+                
+                // Confirm withdrawal
+                document.getElementById('confirmWithdraw').addEventListener('click', function() {
+                    // This would normally make an AJAX call to a PHP script to actually delete the interest
+                    // For now, we'll just simulate this by removing the row from the table
+                    
+                    // In a real application, this would be where you make an AJAX request:
+                    // fetch('../../includes/withdraw_interest.php', {
+                    //     method: 'POST',
+                    //     headers: {
+                    //         'Content-Type': 'application/json',
+                    //     },
+                    //     body: JSON.stringify({
+                    //         initiative_id: initiativeId,
+                    //         user_id: <?php echo $_SESSION['user_id']; ?>
+                    //     }),
+                    // })
+                    // .then(response => response.json())
+                    // .then(data => {
+                    //     if (data.success) {
+                    //         // Remove row and show success message
+                    //     }
+                    // });
+                    
+                    // For demo, just remove the table row
+                    const tableRows = document.querySelectorAll('.interests-table tbody tr');
+                    tableRows.forEach(row => {
+                        const viewDetailsLink = row.querySelector('.action-link.view');
+                        if (viewDetailsLink && viewDetailsLink.getAttribute('onclick').includes(initiativeId)) {
+                            row.remove();
+                            
+                            // Show success toast
+                            showToast('Interest Withdrawn', 'Your interest in this initiative has been successfully withdrawn.', 'success');
+                            
+                            // Check if table is now empty
+                            const remainingRows = document.querySelectorAll('.interests-table tbody tr');
+                            if (remainingRows.length === 0) {
+                                // Show empty state instead of table
+                                const tableContainer = document.querySelector('.interests-table');
+                                const emptyState = document.createElement('div');
+                                emptyState.className = 'empty-state';
+                                emptyState.innerHTML = `
+                                    <i class="fas fa-handshake empty-icon"></i>
+                                    <h4>No Interests Yet</h4>
+                                    <p>You haven't expressed interest in any government initiatives yet. Browse the initiatives and apply with your innovative ideas.</p>
+                                    <button class="action-btn primary-btn" id="browseInitiativesEmpty"><i class="fas fa-building-columns"></i> Browse Government Initiatives</button>
+                                `;
+                                
+                                tableContainer.parentNode.insertBefore(emptyState, tableContainer);
+                                tableContainer.remove();
+                                
+                                // Add event listener to the new button
+                                document.getElementById('browseInitiativesEmpty').addEventListener('click', function() {
+                                    document.getElementById('browseInitiatives').click();
+                                });
+                            }
+                        }
+                    });
+                    
+                    // Close the modal
+                    modal.classList.remove('active');
+                    document.body.classList.remove('modal-open');
+                    setTimeout(() => modal.remove(), 300);
+                });
+            }, 50);
+        };
+        
+        // Add CSS for the status tracker in the modal
+        const statusStyles = document.createElement('style');
+        statusStyles.innerHTML = `
+            .interest-details h4 {
+                margin-top: 0;
+                font-size: 1.4rem;
+                color: #333;
+                margin-bottom: 10px;
+            }
+            
+            .interest-meta {
+                color: #666;
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+            
+            .interest-section {
+                margin-bottom: 25px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .interest-section:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+            
+            .interest-section h5 {
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+                color: #444;
+            }
+            
+            .status-tracker {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin: 20px 0;
+            }
+            
+            .status-step {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 80px;
+                position: relative;
+            }
+            
+            .status-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background-color: #f5f5f5;
+                color: #aaa;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 8px;
+                font-size: 14px;
+                border: 2px solid #ddd;
+            }
+            
+            .status-label {
+                font-size: 12px;
+                text-align: center;
+                color: #666;
+                font-weight: 500;
+            }
+            
+            .status-connector {
+                flex: 1;
+                height: 2px;
+                background-color: #ddd;
+                margin: 0 5px;
+                position: relative;
+                top: -12px;
+            }
+            
+            .status-step.completed .status-icon {
+                background-color: #d4edda;
+                color: #28a745;
+                border-color: #28a745;
+            }
+            
+            .status-step.active .status-icon {
+                background-color: #fff3cd;
+                color: #ffc107;
+                border-color: #ffc107;
+                animation: pulse 1.5s infinite;
+            }
+            
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4);
+                }
+                70% {
+                    box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+                }
+            }
+            
+            .status-message {
+                background-color: #f8f9fa;
+                padding: 15px;
+                border-radius: 6px;
+                border-left: 4px solid #ffc107;
+                font-size: 0.9rem;
+                color: #555;
+            }
+        `;
+        document.head.appendChild(statusStyles);
     </script>
 </body>
 </html> 
